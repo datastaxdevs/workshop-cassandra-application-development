@@ -8,15 +8,15 @@ Install packages, `pip install -r requirements.txt`
 
 ### Run stuff
 
-Run connectivity test:
+Run connectivity test, `python ex_00_connectivity.py`:
 ```
-$> python ex_00_connectivity.py 
+$> python ex_00_connectivity.py
 [get_session] Creating session
     ** Connected to cluster 'cndb' at data center 'eu-west-1' **
 [shutdown_driver] Closing connection
 ```
 
-Run query Q3 as standalone exercise
+Run query Q3 as standalone exercise, `python ex_01_query_Q3.py volcano-net`:
 ```
 $> python ex_01_query_Q3.py volcano-net
 [get_session] Creating session
@@ -26,7 +26,12 @@ $> python ex_01_query_Q3.py volcano-net
 [shutdown_driver] Closing connection
 ```
 
-Start the API
+Try to run the improved form of the same exercise, which uses prepared statements:
+`python ex_01B_query_Q3.py volcano-net`. If you plan to run the same statements over and over,
+possibly with other arguments, you should always employ prepared statements as they improve
+the performance by reducing the overhead.
+
+Start the API, `uvicorn api:app`:
 ```
 $> uvicorn api:app
 INFO:     Started server process [68610]
@@ -35,9 +40,9 @@ INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 ```
 
-With the API running, _in another shell_ try to call it:
+With the API running, _in the other shell_ try to call it, `curl -s localhost:8000/sensors_by_network/volcano-net | jq`:
 ```
-$> curl -s localhost:8000/sensors_by_network/volcano-net | python -mjson.tool
+$> curl -s localhost:8000/sensors_by_network/volcano-net | jq
 [
     {
         "characteristics": {
@@ -64,6 +69,5 @@ $> curl -s localhost:8000/sensors_by_network/volcano-net | python -mjson.tool
 
 ### TODOs
 
-- prepared statements
 - other endpoints
 - better fastAPI structure (but: don't overdo, would confuse)

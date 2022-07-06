@@ -75,7 +75,7 @@ Now, click here to copy the DB-population script and paste it in the CQL Console
 Choose your path:
 
 - [Python](python/Python_README.md)
-- [Java](#)
+- [Java](java/Java_README.md)
 
 ## Homework instructions
 

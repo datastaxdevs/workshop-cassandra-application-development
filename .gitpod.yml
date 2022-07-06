@@ -8,7 +8,13 @@ tasks:
     #   npm install -g netlify-cli
     #   npm install
     command: |
-      echo "READY TO ROCK!"
+      cls
+      echo -e "\n\n\n\tREADY TO ROCK!"
+  - name: curl-console
+    openMode: split-right
+    command: |
+      cls
+      echo -e "\n\n\n\tREADY TO CURL!"
 # ports:
 #   - port: 8888
 #     onOpen: open-preview
