@@ -1,4 +1,4 @@
-# Python README
+# Python instructions
 
 ### Setup
 

@@ -1,0 +1,29 @@
+tasks:
+  - name: main-console
+    # before: |
+    #   cd graphql-client-examples
+    #   nvm install 16.13.0
+    #   npm install -g npm@latest
+    #   npm install astra-setup
+    #   npm install -g netlify-cli
+    #   npm install
+    command: |
+      echo "READY TO ROCK!"
+# ports:
+#   - port: 8888
+#     onOpen: open-preview
+#   - port: 8080
+#     visibility: public
+#     onOpen: open-browser
+#   - port: 3000
+#     onOpen: ignore      
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: false
+    addCheck: true
+    addComment: false
+    addBadge: true
+    addLabel: false
