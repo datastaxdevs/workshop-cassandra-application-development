@@ -8,7 +8,12 @@ Install packages, `pip install -r requirements.txt`
 
 ### Run stuff
 
-Run connectivity test, `python ex_00_connectivity.py`:
+💻 Run connectivity test:
+```bash
+python ex_00_connectivity.py
+```
+<details><summary>Show expected result</summary>
+
 ```
 $> python ex_00_connectivity.py
 [get_session] Creating session
@@ -16,7 +21,14 @@ $> python ex_00_connectivity.py
 [shutdown_driver] Closing connection
 ```
 
-Run query Q3 as standalone exercise, `python ex_01_query_Q3.py volcano-net`:
+</details>
+
+💻 Run query Q3 as standalone exercise:
+```bash
+python ex_01_query_Q3.py volcano-net
+```
+<details><summary>Show expected result</summary>
+
 ```
 $> python ex_01_query_Q3.py volcano-net
 [get_session] Creating session
@@ -26,12 +38,22 @@ $> python ex_01_query_Q3.py volcano-net
 [shutdown_driver] Closing connection
 ```
 
-Try to run the improved form of the same exercise, which uses prepared statements:
-`python ex_01B_query_Q3.py volcano-net`. If you plan to run the same statements over and over,
-possibly with other arguments, you should always employ prepared statements as they improve
-the performance by reducing the overhead.
+</details>
 
-Start the API, `uvicorn api:app`:
+💻 Try to run the improved form of the same exercise, which uses prepared statements:
+```bash
+python ex_01B_query_Q3.py volcano-net
+```
+> If you plan to run the same statements over and over,
+> possibly with other arguments, you should always employ prepared statements as they improve
+> the performance by reducing the overhead. Thus this version of query Q3 is to be preferred.
+
+💻 Start the API:
+```bash
+uvicorn api:app
+```
+<details><summary>Show expected result</summary>
+
 ```
 $> uvicorn api:app
 INFO:     Started server process [68610]
@@ -40,7 +62,14 @@ INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 ```
 
-With the API running, _in the other shell_ try to call it, `curl -s localhost:8000/sensors_by_network/volcano-net | jq`:
+</details>
+
+💻 With the API running, _in the other shell_ try to call the "Q3" endpoint (GET):
+```bash
+curl -s localhost:8000/sensors_by_network/volcano-net | jq
+```
+<details><summary>Show expected result</summary>
+
 ```
 $> curl -s localhost:8000/sensors_by_network/volcano-net | jq
 [
@@ -67,7 +96,44 @@ $> curl -s localhost:8000/sensors_by_network/volcano-net | jq
 ]
 ```
 
-### TODOs
+</details>
 
-- other endpoints
-- better fastAPI structure (but: don't overdo, would confuse)
+This endpoint is a GET and its parameter is a path component in the URL.
+Try to find, in the API code, where the URL path is parsed to obtain the `network` name.
+
+💻 With the API running, _in the other shell_ try to call the "Q4" endpoint (POST):
+```bash
+curl -s -XPOST localhost:8000/measurements_by_sensor_date \
+    -d '{"sensor":"s1001", "date":"2020-07-04"}' \
+    -H 'Content-Type: application/json' | jq
+```
+<details><summary>Show expected result</summary>
+
+```
+$ curl -s -XPOST localhost:8000/measurements_by_sensor_date \
+>     -d '{"sensor":"s1001", "date":"2020-07-04"}' \
+>     -H 'Content-Type: application/json' | jq
+[
+  {
+    "timestamp": "2020-07-04T12:59:59",
+    "value": 98
+  },
+  {
+    "timestamp": "2020-07-04T12:00:01",
+    "value": 97
+  },
+  {
+    "timestamp": "2020-07-04T00:59:59",
+    "value": 79
+  },
+  {
+    "timestamp": "2020-07-04T00:00:01",
+    "value": 80
+  }
+]
+```
+
+In this case, the parameters are passed as POST payload: you can check, in the API
+code, the way these are parsed and used within the endpoint function body.
+This makes use of a `pydantic` model and the highly-automated dependency management
+facilities offered by FastAPI.
