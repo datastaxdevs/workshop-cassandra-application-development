@@ -44,8 +44,8 @@ $> python ex_01_query_Q3.py volcano-net
 ```bash
 python ex_01B_query_Q3.py volcano-net
 ```
-> If you plan to run the same statements over and over,
-> possibly with other arguments, you should always employ prepared statements as they improve
+> If you plan to run the same CQL statements over and over in your driver-based application
+> (possibly with variable arguments), you should always employ prepared statements as they improve
 > the performance by reducing the overhead. Thus this version of query Q3 is to be preferred.
 
 💻 Start the API:
