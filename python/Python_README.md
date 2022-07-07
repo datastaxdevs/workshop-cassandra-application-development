@@ -6,6 +6,9 @@ First `cd python`
 
 Install packages, `pip install -r requirements.txt`
 
+The core module is `db_connection.py` which provides a (Singleton) Cassandra
+session for use by the rest of the code. Take a minute to [inspect that](db_connection.py).
+
 ### Run stuff
 
 💻 Run connectivity test:
