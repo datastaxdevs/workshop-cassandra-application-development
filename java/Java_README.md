@@ -84,7 +84,7 @@ curl -s localhost:8080/sensors_by_network/volcano-net | jq
 <details><summary>Show expected result</summary>
 
 ```
-$> curl -s localhost:8000/sensors_by_network/volcano-net | jq
+$> curl -s localhost:8080/sensors_by_network/volcano-net | jq
 [
     {
         "characteristics": {
@@ -116,14 +116,14 @@ Try to find, in the API code, where the URL path is parsed to obtain the `networ
 
 💻 With the API running, _in the other shell_ try to call the "Q4" endpoint (POST):
 ```bash
-curl -s -XPOST localhost:8000/measurements_by_sensor_date \
+curl -s -XPOST localhost:8080/measurements_by_sensor_date \
     -d '{"sensor":"s1001", "date":"2020-07-04"}' \
     -H 'Content-Type: application/json' | jq
 ```
 <details><summary>Show expected result</summary>
 
 ```
-$ curl -s -XPOST localhost:8000/measurements_by_sensor_date \
+$ curl -s -XPOST localhost:8080/measurements_by_sensor_date \
 >     -d '{"sensor":"s1001", "date":"2020-07-04"}' \
 >     -H 'Content-Type: application/json' | jq
 [
@@ -145,6 +145,6 @@ $ curl -s -XPOST localhost:8000/measurements_by_sensor_date \
   }
 ]
 ```
+</details>
 
-In this case, the parameters are passed as POST payload: you can check, in the API
-code, the way these are parsed and used within the endpoint function body.
+In this case, the parameters are passed as POST payload: you can check, in the API code, the way these are parsed and used within the endpoint function body.
