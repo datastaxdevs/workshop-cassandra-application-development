@@ -7,8 +7,8 @@ First (in the GitPod terminal) `cd java`.
 Execute a `mvn clean install` to bring in the dependent packages and build everything.
 
 The connection classes are `AstraConnection.java` and `CassandraConnection.java`.  The `AstraConnection` class extends the `CassandraConnection` super class, accounting for the Astra DB environment variables.  Take a minute to give those a look:
- - [AstraConnection](AstraConnection.java)
- - [CassandraConnection](CassandraConnection.java)
+ - [AstraConnection](src/main/java/astraconnect/AstraConnection.java)
+ - [CassandraConnection](src/main/java/astraconnect/CassandraConnection.java)
 
 ### Run stuff
 
