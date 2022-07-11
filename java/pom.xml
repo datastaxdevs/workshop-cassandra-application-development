@@ -35,7 +35,7 @@
 			      <archive>
 			        <manifest>
 			          <addClasspath>true</addClasspath>
-			          <mainClass>appdevworkshop.TestConnectivity</mainClass>
+			          <mainClass>appdevworkshop.SensorNetwork</mainClass>
 			        </manifest>
 			      </archive>
 			      <descriptorRefs>
