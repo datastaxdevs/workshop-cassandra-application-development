@@ -55,3 +55,96 @@ java -jar target/examples-0.0.1-jar-with-dependencies.jar ex_01B_query_Q3 volcan
 > If you plan to run the same CQL statements over and over in your driver-based application
 > (possibly with variable arguments), you should always employ prepared statements as they improve
 > the performance by reducing the overhead. Thus this version of query Q3 is to be preferred.
+
+💻 Start the API:
+```bash
+cd ../springjava
+mvn clean install
+mvn spring-boot:run
+```
+<details><summary>Show expected result</summary>
+
+```
+2022-07-11 17:27:18.845  INFO 60815 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-07-11 17:27:18.852  INFO 60815 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-07-11 17:27:18.852  INFO 60815 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-07-11 17:27:18.904  INFO 60815 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-07-11 17:27:18.904  INFO 60815 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 446 ms
+2022-07-11 17:27:19.113  INFO 60815 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-07-11 17:27:19.121  INFO 60815 --- [           main] springexamples.SensorNetworkSpringApp    : Started SensorNetworkSpringApp in 0.865 seconds (JVM running for 4.094)
+
+```
+
+</details>
+
+💻 With the API running, _in the other shell_ try to call the "Q3" endpoint (GET):
+```bash
+curl -s localhost:8080/sensors_by_network/volcano-net | jq
+```
+<details><summary>Show expected result</summary>
+
+```
+$> curl -s localhost:8000/sensors_by_network/volcano-net | jq
+[
+    {
+        "characteristics": {
+            "accuracy": "high",
+            "sensitivity": "medium"
+        },
+        "latitude": 44.460321,
+        "longitude": -110.828151,
+        "network": "volcano-net",
+        "sensor": "s2001"
+    },
+    {
+        "characteristics": {
+            "accuracy": "high",
+            "sensitivity": "medium"
+        },
+        "latitude": 44.463195,
+        "longitude": -110.830124,
+        "network": "volcano-net",
+        "sensor": "s2002"
+    }
+]
+```
+
+</details>
+
+This endpoint is a GET and its parameter is a path component in the URL.
+Try to find, in the API code, where the URL path is parsed to obtain the `network` name.
+
+💻 With the API running, _in the other shell_ try to call the "Q4" endpoint (POST):
+```bash
+curl -s -XPOST localhost:8000/measurements_by_sensor_date \
+    -d '{"sensor":"s1001", "date":"2020-07-04"}' \
+    -H 'Content-Type: application/json' | jq
+```
+<details><summary>Show expected result</summary>
+
+```
+$ curl -s -XPOST localhost:8000/measurements_by_sensor_date \
+>     -d '{"sensor":"s1001", "date":"2020-07-04"}' \
+>     -H 'Content-Type: application/json' | jq
+[
+  {
+    "timestamp": "2020-07-04T12:59:59",
+    "value": 98
+  },
+  {
+    "timestamp": "2020-07-04T12:00:01",
+    "value": 97
+  },
+  {
+    "timestamp": "2020-07-04T00:59:59",
+    "value": 79
+  },
+  {
+    "timestamp": "2020-07-04T00:00:01",
+    "value": 80
+  }
+]
+```
+
+In this case, the parameters are passed as POST payload: you can check, in the API
+code, the way these are parsed and used within the endpoint function body.
