@@ -15,4 +15,8 @@ public class AstraConnection extends CassandraConnection {
     public CqlSession getCqlSession() {
     	return super.getCqlSession();
     }
+    
+    public void finalize() {
+    	super.finalize();
+    }
 }
