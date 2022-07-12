@@ -86,26 +86,26 @@ curl -s localhost:8080/sensors_by_network/volcano-net | jq
 ```
 $> curl -s localhost:8080/sensors_by_network/volcano-net | jq
 [
-    {
-        "characteristics": {
-            "accuracy": "high",
-            "sensitivity": "medium"
-        },
-        "latitude": 44.460321,
-        "longitude": -110.828151,
-        "network": "volcano-net",
-        "sensor": "s2001"
-    },
-    {
-        "characteristics": {
-            "accuracy": "high",
-            "sensitivity": "medium"
-        },
-        "latitude": 44.463195,
-        "longitude": -110.830124,
-        "network": "volcano-net",
-        "sensor": "s2002"
-    }
+{
+  "network": "volcano-net",
+  "sensor": "s2001",
+  "latitude": 44.460321,
+  "longitude": -110.828151,
+  "characteristics": {
+    "accuracy": "high",
+    "sensitivity": "medium"
+  }
+},
+{
+  "network": "volcano-net",
+  "sensor": "s2002",
+  "latitude": 44.463195,
+  "longitude": -110.830124,
+  "characteristics": {
+    "accuracy": "high",
+    "sensitivity": "medium"
+  }
+}
 ]
 ```
 
@@ -127,22 +127,22 @@ $ curl -s -XPOST localhost:8080/measurements_by_sensor_date \
 >     -d '{"sensor":"s1001", "date":"2020-07-04"}' \
 >     -H 'Content-Type: application/json' | jq
 [
-  {
-    "timestamp": "2020-07-04T12:59:59",
-    "value": 98
-  },
-  {
-    "timestamp": "2020-07-04T12:00:01",
-    "value": 97
-  },
-  {
-    "timestamp": "2020-07-04T00:59:59",
-    "value": 79
-  },
-  {
-    "timestamp": "2020-07-04T00:00:01",
-    "value": 80
-  }
+{
+  "value": 98,
+  "timestamp": "2020-07-04T12:59:59Z"
+},
+{
+  "value": 97,
+  "timestamp": "2020-07-04T12:00:01Z"
+},
+{
+  "value": 79,
+  "timestamp": "2020-07-04T00:59:59Z"
+},
+{
+  "value": 80,
+  "timestamp": "2020-07-04T00:00:01Z"
+}
 ]
 ```
 </details>
