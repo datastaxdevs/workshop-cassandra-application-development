@@ -1,5 +1,12 @@
 # Java instructions
 
+2. [Sensor App](#2-sensor-app)
+3. [Sensor API](#3-sensor-api)
+
+## 2. Sensor App
+
+You will be running the following steps from the command line.
+
 ### Setup
 
 First (in the GitPod terminal) `cd java`.
@@ -55,6 +62,8 @@ java -jar target/examples-0.0.1-jar-with-dependencies.jar ex_01B_query_Q3 volcan
 > If you plan to run the same CQL statements over and over in your driver-based application
 > (possibly with variable arguments), you should always employ prepared statements as they improve
 > the performance by reducing the overhead. Thus this version of query Q3 is to be preferred.
+
+## 3. Sensor API
 
 💻 Start the API:
 ```bash
