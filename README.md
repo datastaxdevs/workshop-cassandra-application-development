@@ -10,6 +10,8 @@ Learn about drivers, connectivity and requests by running a simple API with
 Apache Cassandra/Astra DB as its data backend. The practice is available in both
 Python and Java.
 
+Click here for the [slide deck](slides/java-and-python-apps-with-cassandra-slides.pdf) of this workshop.
+
 ### Pre-requisites
 
 This workshop, the third in a series, builds on the same example used in the two previous
@@ -30,6 +32,8 @@ and that you have a valid DB Token (which comes with the DB creation).
 _In case you haven't your Astra DB yet, go ahead and create it now for free by clicking here:_
 
 <a href="https://astra.dev/yt-8-10"><img src="images/create_astra_db_button.png?raw=true" /></a>
+
+> _Tip_: call the database `workshops` and the keyspace `sensor_data`.
 
 ## Steps
 
