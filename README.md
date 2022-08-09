@@ -9,7 +9,7 @@ Python and Java.
 This workshop, the third in a series, builds on the same example used in the two previous
 episodes (an IoT application to access temperature measurements collected from a network of sensors).
 
-Besides some knowledge of the example domain used in this workshop, it is desirable to have
+Besides some knowledge of the [example domain](https://www.datastax.com/learn/data-modeling-by-example/sensor-data-model) used in this workshop, it is desirable to have
 familiarity with the concepts explored in the two previous installments of the series:
 
 - [Cassandra Fundamentals](https://github.com/datastaxdevs/workshop-cassandra-fundamentals)
@@ -72,6 +72,9 @@ Now, click here to copy the DB-population script and paste it in the CQL Console
 
 ## Now to the exercises!
 
+_Note: it is suggested to check the [sensor data model](https://www.datastax.com/learn/data-modeling-by-example/sensor-data-model)
+in order to be better prepared for what follows. Keep it open in another tab._
+
 Choose your path:
 
 - [Python](python/Python_README.md)
@@ -79,4 +82,28 @@ Choose your path:
 
 ## Homework instructions
 
-(coming soon...)
+In order to get a badge of completion for this workshop,
+complete the following assignment:
+
+> Add a GET endpoint to your API corresponding to query `Q1`
+> (_"Find information about all networks; order by name (asc)"_).
+> **Tip**: remember the optimization of having inserted the `bucket` column.
+
+<img src="images/api-micro.png?raw=true" width="80" align="left" />
+
+Take a _screenshot_ of the relevant code block and of a successful
+request to that endpoint and head over to [this form](https://dtsx.io/homework-appdev). Answer a couple of
+"theory" questions, attach your screenshot, and hit "Submit".
+
+That's it! Expect to be awarded your badge in the next week or so!
+
+## Conclusion
+
+This is not the end of your journey, rather the start: come visit us for more
+cool content, and learn how to succeed using
+Cassandra and Astra DB in your applications!
+
+Congratulations and see you at our next workshop!
+
+> Sincerely yours, the DataStax Developers
+> 
