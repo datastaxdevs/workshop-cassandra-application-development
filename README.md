@@ -89,7 +89,7 @@ complete the following assignment:
 > (_"Find information about all networks; order by name (asc)"_).
 > **Tip**: remember the optimization of having inserted the `bucket` column.
 
-<img src="images/api-micro.png?raw=true" width="80" align="left" />
+<img src="images/api-micro.png?raw=true" width="180" align="left" />
 
 Take a _screenshot_ of the relevant code block and of a successful
 request to that endpoint and head over to [this form](https://dtsx.io/homework-appdev). Answer a couple of
