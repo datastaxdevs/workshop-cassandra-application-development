@@ -1,5 +1,11 @@
 # workshop-cassandra-application-development
 
+1. [Database Setup](#1-database-setup)
+- [Python](python/Python_README.md)
+- [Java](java/Java_README.md)
+
+_Step #2 and #3 are under the Java and Python paths.  You must pick either Java or Python before proceeding to Steps #2 and #3._
+
 Learn about drivers, connectivity and requests by running a simple API with
 Apache Cassandra/Astra DB as its data backend. The practice is available in both
 Python and Java.
@@ -26,6 +32,8 @@ _In case you haven't your Astra DB yet, go ahead and create it now for free by c
 <a href="https://astra.datastax.com"><img src="images/create_astra_db_button.png?raw=true" /></a>
 
 ## Steps
+
+## 1. Database Setup
 
 #### Secure-connect bundle
 
@@ -58,6 +66,11 @@ repo's root directory:
 - insert the Client ID and Client Secret from your DB Token
 - insert the full path to your secure-connect bundle. Chances are you can leave it as it is; to make sure, check the output of `ls /workspace/workshop-cassandra-application-development/*.zip`
 - check the keyspace name (most likely you don't have to change it)
+- Finally, `source` the .env file.
+
+```bash
+source .env
+```
 
 #### DB content reset
 
