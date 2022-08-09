@@ -82,14 +82,14 @@ Choose your path:
 
 ## Homework instructions
 
+<img src="images/api-micro.png?raw=true" width="150" align="left" />
+
 In order to get a badge of completion for this workshop,
 complete the following assignment:
 
 > Add a GET endpoint to your API corresponding to query `Q1`
 > (_"Find information about all networks; order by name (asc)"_).
 > **Tip**: remember the optimization of having inserted the `bucket` column.
-
-<img src="images/api-micro.png?raw=true" width="180" align="left" />
 
 Take a _screenshot_ of the relevant code block and of a successful
 request to that endpoint and head over to [this form](https://dtsx.io/homework-appdev). Answer a couple of
