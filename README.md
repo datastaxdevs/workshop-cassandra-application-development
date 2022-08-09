@@ -23,7 +23,7 @@ and that you have a valid DB Token (which comes with the DB creation).
 
 _In case you haven't your Astra DB yet, go ahead and create it now for free by clicking here:_
 
-<a href="https://astra.datastax.com"><img src="images/create_astra_db_button.png?raw=true" /></a>
+<a href="https://astra.dev/yt-8-10"><img src="images/create_astra_db_button.png?raw=true" /></a>
 
 ## Steps
 
