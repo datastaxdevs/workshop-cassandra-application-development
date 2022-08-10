@@ -35,6 +35,9 @@ _In case you haven't your Astra DB yet, go ahead and create it now for free by c
 
 > _Tip_: call the database `workshops` and the keyspace `sensor_data`.
 
+_In case you already have a database `workshops` but no `sensor_data` keyspace,
+simply add it using the "Add Keyspace" button on the bottom right hand corner of your DB dashboard._
+
 ## Steps
 
 ## 1. Database Setup
