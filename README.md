@@ -70,7 +70,7 @@ repo's root directory:
 - insert the Client ID and Client Secret from your DB Token
 - insert the full path to your secure-connect bundle. Chances are you can leave it as it is; to make sure, check the output of `ls /workspace/workshop-cassandra-application-development/*.zip`
 - check the keyspace name (most likely you don't have to change it)
-- Finally, `source` the .env file.
+- Finally, `source` the .env file:
 
 ```bash
 source .env
