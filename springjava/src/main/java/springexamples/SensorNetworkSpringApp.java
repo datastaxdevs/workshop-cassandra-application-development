@@ -27,6 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class SensorNetworkSpringApp {
 	static AstraConnection conn;
 	static CqlSession session;
+
+	PreparedStatement q3Prepared;
+	PreparedStatement q4Prepared;
 	
 	public static void main(String[] args) {
 		conn = new AstraConnection();
@@ -37,7 +40,9 @@ public class SensorNetworkSpringApp {
 	 
 	@GetMapping("/sensors_by_network/{network}")
 	public String getSensorsByNetwork(@PathVariable(value = "network") String network) {
-		PreparedStatement q3Prepared = session.prepare("SELECT * FROM sensors_by_network WHERE network = ?");
+		if(q3Prepared == null){
+			q3Prepared = session.prepare("SELECT * FROM sensors_by_network WHERE network = ?");
+		}
 		BoundStatement q3Bound = q3Prepared.bind(network);
 		ResultSet rs = session.execute(q3Bound);
 		
@@ -47,8 +52,10 @@ public class SensorNetworkSpringApp {
 
 	@PostMapping("/measurements_by_sensor_date")
 	public String getMeasurementsBySensorDate(@RequestBody SensorByDateRequest request) {
-		PreparedStatement q4Prepared = session.prepare(
-				"SELECT timestamp, value FROM temperatures_by_sensor WHERE sensor=? AND date=?");
+		if(q4Prepared == null){
+			q4Prepared = session.prepare(
+					"SELECT timestamp, value FROM temperatures_by_sensor WHERE sensor=? AND date=?");
+		}
 		BoundStatement q4Bound = q4Prepared.bind(request.getSensor(),request.getDate());
 		ResultSet rs = session.execute(q4Bound);
 		
