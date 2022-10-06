@@ -29,6 +29,12 @@ It is assumed in the following that you already have created
 your [Astra DB instance](https://github.com/datastaxdevs/workshop-cassandra-fundamentals#4-create-your-astra-db-instance) as instructed in the first episode,
 and that you have a valid DB Token (which comes with the DB creation).
 
+> **⚠️ Important**
+> ```
+> The instructor will show you on screen how to create a token 
+> but will have to destroy to token immediately for security reasons.
+> ```
+
 _In case you haven't your Astra DB yet, go ahead and create it now for free by clicking here:_
 
 <a href="https://astra.dev/yt-8-10"><img src="images/create_astra_db_button.png?raw=true" /></a>
