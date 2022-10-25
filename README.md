@@ -54,7 +54,8 @@ If you don't have a "DB Administrator" token yet, log in to your Astra DB
 and create a token with this role.
 To create the token, click on the "..." menu next to your database in the main
 Astra dashboard and choose "Generate token". Then make sure you select the "DB Administrator" role.
-_Download or note down all components of the token before navigating away: these will not be shown again._
+_Download or note down all components of the token before navigating away:
+these will not be shown again._
 [See here](https://awesome-astra.github.io/docs/pages/astra/create-token/)
 for more on token creation.
 
@@ -71,43 +72,122 @@ creating the database is not powerful enough for us today._
 
 First, open this repo in Gitpod by right-clicking the following button ("open in new tab"):
 
-<a href="https://gitpod.io/#https://github.com/datastaxdevs/workshop-cassandra-application-development"><img src="images/open_in_gitpod.svg?raw=true" /></a>
+**FIXME** this Gitpod button currently points to a branch in Stefano's fork!
+
+<a href="https://gitpod.io/#https://github.com/hemidactylus/workshop-cassandra-application-development/tree/astra-cli"><img src="images/open_in_gitpod.svg?raw=true" /></a>
 
 In a couple of minutes you will have your Gitpod IDE up and running, with this repo cloned,
-ready and waiting for you.
+ready and waiting for you (you may have to authorize the Gitpod single-sign-on to continue).
 
 _Note_: The next steps are to be executed _within the Gitpod IDE._
 
-#### Provide DB access credentials
+#### Install and configure the Astra CLI
 
-**First** upload the secure-connect-bundle to Gitpod, simply by locating
-it on your system with the file explorer and dragging it over to the left-side
-Gitpod panel (the file manager). Make sure the file is in the repo's root.
+In a console within Gitpod, install Astra CLI with
 
-**Second** prepare a `.env` file with some environment variables that will
-be picked up by the application to connect to the database. To do so, in the main
-repo's root directory:
+```
+curl -Ls "https://dtsx.io/get-astra-cli" | bash
+```
 
-- copy the template and edit it, `cp .env.sample .env ; gp open .env`
-- insert the Client ID and Client Secret from your DB Token
-- insert the full path to your secure-connect bundle. Chances are you can leave it as it is; to make sure, check the output of `ls /workspace/workshop-cassandra-application-development/*.zip`
-- check the keyspace name (most likely you don't have to change it)
-- Finally, `source` the .env file:
+Then provide the "token proper" part of the Token, the string starting with `AstraCS:...`), by running
+
+```
+. ~/.bashrc ; astra setup
+```
+
+(_Optional)_ Get some information on your Astra DB with:
+
+```
+astra db list
+astra db list-keyspaces workshops
+astra db get workshops
+```
+
+#### Create and populate tables
+
+The Astra CLI can also launch a `cqlsh` session for you, automatically connected
+to your database. Use this feature to execute a `cql` script that resets the
+contents of the `sensor_data` keyspace, creating the right tables and writing
+representative data on them:
+
+```
+astra db cqlsh workshops -f initialize.cql
+```
+
+You are encouraged to peek at the contents of the script to see what it does.
+
+(_Optional)_ Interactively run some test queries on the newly-populated keyspace
+
+<details><summary>Click to show test queries</summary>
+
+Open an interactive `cqlsh` shell with:
+
+```
+astra db cqlsh workshops -k sensor_data
+```
+
+Now you can copy-paste any of the queries below and execute them with the `Enter` key:
+
+```
+-- Q1 (note 'all' is the only partition key in this table)
+SELECT  name, description, region, num_sensors
+FROM    networks
+WHERE   bucket = 'all';
+
+-- Q2
+SELECT  date_hour, avg_temperature, latitude, longitude, sensor 
+FROM    temperatures_by_network
+WHERE   network    = 'forest-net'
+  AND   week       = '2020-07-05'
+  AND   date_hour >= '2020-07-05'
+  AND   date_hour  < '2020-07-07';
+
+-- Q3
+SELECT  *
+FROM    sensors_by_network
+WHERE   network = 'forest-net';
+
+-- Q4
+SELECT  timestamp, value 
+FROM    temperatures_by_sensor
+WHERE   sensor = 's1003'
+  AND   date   = '2020-07-06';
+```
+
+To close `cqlsh` and get back to the shell prompt, execute the `EXIT` command.
+
+</details>
+
+#### Download the Secure Connect Bundle
+
+Besides the "Client ID" and the "Client Secret" from the Token, the drivers
+also need the "Secure Connect Bundle" zipfile to work (it contains proxy
+and routing information as well as the necessary certificates).
+
+To download it:
+
+```
+astra db download-scb -f secure-connect-workshops.zip workshops
+```
+
+You can check it has been saved with `ls *.zip`.
+
+#### Configure the dot-env file
+
+Copy the template dot-env and edit it with:
+
+```
+cp .env.sample .env ; gp open .env
+```
+
+Replace the Client ID and Client Secret strings from the database Token.
+
+Finally, `source` the .env file:
 
 ```bash
 source .env
 ```
 
-#### DB content reset
-
-If you did the exercises in previous episodes, your database already contains the right tables
-and the correct data. In any case, we provide a handy script to copy and paste in your Astra DB's Web-based CQL Console to populate the database with everything needed for the next steps.
-
-> Note: if you created some tables, but messed up with their structure, you can
-> issue `DROP TABLE <tablename>;` commands before running the DB-population script.
-> _(if you get timeout errors, don't worry, it's an UI thing - the table has been dropped nevertheless.)_
-
-Now, click here to copy the DB-population script and paste it in the CQL Console: [`initialize.cql`](https://raw.githubusercontent.com/datastaxdevs/workshop-cassandra-application-development/main/initialize.cql).
 
 ## 2. Now to the exercises!
 
