@@ -1,7 +1,6 @@
 # workshop-cassandra-application-development
 
 1. [Database Setup](#1-database-setup)
-2. Run the app:
 
 - [Python](python/Python_README.md)
 - [Java](java/Java_README.md)
