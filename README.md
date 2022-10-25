@@ -1,6 +1,6 @@
 # workshop-cassandra-application-development
 
-1. [Database Setup](#1-database-setup)
+1. [Setup](#1-database-setup)
 
 - [Python](python/Python_README.md)
 - [Java](java/Java_README.md)
@@ -188,7 +188,7 @@ source .env
 ```
 
 
-## 2. Now to the exercises!
+## 2 & 3. Now to the exercises!
 
 _Note: it is suggested to check the [sensor data model](https://www.datastax.com/learn/data-modeling-by-example/sensor-data-model)
 in order to be better prepared for what follows. Keep it open in another tab._
