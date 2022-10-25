@@ -1,6 +1,8 @@
 # workshop-cassandra-application-development
 
 1. [Database Setup](#1-database-setup)
+2. Run the app:
+
 - [Python](python/Python_README.md)
 - [Java](java/Java_README.md)
 
@@ -27,13 +29,11 @@ familiarity with the concepts explored in the two previous installments of the s
 
 It is assumed in the following that you already have created
 your [Astra DB instance](https://github.com/datastaxdevs/workshop-cassandra-fundamentals#4-create-your-astra-db-instance) as instructed in the first episode,
-and that you have a valid DB Token (which comes with the DB creation).
-
-> **⚠️ Important**
-> ```
-> The instructor will show you on screen how to create a token 
-> but will have to destroy to token immediately for security reasons.
-> ```
+and that you have a valid "DB Administrator" Token.
+**Note**: the Token that is created with the database does not have all permissions we need,
+so you _need_ to manually [create a Token](https://awesome-astra.github.io/docs/pages/astra/create-token/)
+with the higher "DB Administrator"
+permission and use it in what comes next.
 
 _In case you haven't your Astra DB yet, go ahead and create it now for free by clicking here:_
 
@@ -46,13 +46,26 @@ simply add it using the "Add Keyspace" button on the bottom right hand corner of
 
 ## Steps
 
-## 1. Database Setup
+## 1. Setup
 
-#### Secure-connect bundle
+#### Astra DB "Administrator" token
 
-Log in to your Astra DB, go to your database's dashboard
-and download a [Secure-connect bundle](https://awesome-astra.github.io/docs/pages/astra/download-scb/#c-procedure) to access
-the database. Keep the file handy, as you will soon upload it to Gitpod.
+If you don't have a "DB Administrator" token yet, log in to your Astra DB
+and create a token with this role.
+To create the token, click on the "..." menu next to your database in the main
+Astra dashboard and choose "Generate token". Then make sure you select the "DB Administrator" role.
+_Download or note down all components of the token before navigating away: these will not be shown again._
+[See here](https://awesome-astra.github.io/docs/pages/astra/create-token/)
+for more on token creation.
+
+> **⚠️ Important**
+> ```
+> The instructor will show you on screen how to create a token 
+> but will have to destroy to token immediately for security reasons.
+> ```
+
+Mind that, as mentioned already, _the default Token auto-created for you when
+creating the database is not powerful enough for us today._
 
 #### Gitpod
 
@@ -96,7 +109,7 @@ and the correct data. In any case, we provide a handy script to copy and paste i
 
 Now, click here to copy the DB-population script and paste it in the CQL Console: [`initialize.cql`](https://raw.githubusercontent.com/datastaxdevs/workshop-cassandra-application-development/main/initialize.cql).
 
-## Now to the exercises!
+## 2. Now to the exercises!
 
 _Note: it is suggested to check the [sensor data model](https://www.datastax.com/learn/data-modeling-by-example/sensor-data-model)
 in order to be better prepared for what follows. Keep it open in another tab._
