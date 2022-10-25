@@ -91,6 +91,7 @@ curl -Ls "https://dtsx.io/get-astra-cli" | bash
 Then provide the "token proper" part of the Token, the string starting with `AstraCS:...`), by running
 
 ```
+export PATH="$PATH:~/.astra/cli"    # TEMPORARY workaround
 . ~/.bashrc ; astra setup
 ```
 
