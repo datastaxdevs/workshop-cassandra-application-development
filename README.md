@@ -110,6 +110,9 @@ contents of the `sensor_data` keyspace, creating the right tables and writing
 representative data on them:
 
 ```
+# Make sure the DB exists (resuming it if hibernated)
+astra db create workshops -k sensor_data --if-not-exist --wait
+# Launch the initialization script
 astra db cqlsh workshops -f initialize.cql
 ```
 
