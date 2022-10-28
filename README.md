@@ -71,9 +71,7 @@ creating the database is not powerful enough for us today._
 
 First, open this repo in Gitpod by right-clicking the following button ("open in new tab"):
 
-**FIXME** this Gitpod button currently points to a branch in Stefano's fork!
-
-<a href="https://gitpod.io/#https://github.com/hemidactylus/workshop-cassandra-application-development/tree/astra-cli"><img src="images/open_in_gitpod.svg?raw=true" /></a>
+<a href="https://gitpod.io/#https://github.com/datastaxdevs/workshop-cassandra-application-development"><img src="images/open_in_gitpod.svg?raw=true" /></a>
 
 In a couple of minutes you will have your Gitpod IDE up and running, with this repo cloned,
 ready and waiting for you (you may have to authorize the Gitpod single-sign-on to continue).
