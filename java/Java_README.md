@@ -9,7 +9,9 @@ You will be running the following steps from the command line.
 
 ### Setup
 
-First (in the GitPod terminal) `cd java`.
+First (in the GitPod terminal), do `source .env` to set environment variables for your app.
+
+Next `cd java`.
 
 Execute a `mvn clean install` to bring in the dependent packages and build everything.
 
