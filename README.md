@@ -61,7 +61,7 @@ for more on token creation.
 > **⚠️ Important**
 > ```
 > The instructor will show the token creation on screen,
-> but will then have to destroy it immediately for security reasons.
+> but will then destroy it immediately for security reasons.
 > ```
 
 Mind that, as mentioned already, _the default Token auto-created for you when
