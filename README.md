@@ -15,24 +15,17 @@ Click here for the [slide deck](slides/java-and-python-apps-with-cassandra-slide
 
 ### Pre-requisites
 
-This workshop, the third in a series, builds on the same example used in the two previous
-episodes (an IoT application to access temperature measurements collected from a network of sensors).
+This workshop, the third in a series, builds on the same example used in the two previous episodes (an IoT application to access temperature measurements collected from a network of sensors).
 
-Besides some knowledge of the [example domain](https://www.datastax.com/learn/data-modeling-by-example/sensor-data-model) used in this workshop, it is desirable to have
-familiarity with the concepts explored in the two previous installments of the series:
+Besides some knowledge of the [example domain](https://www.datastax.com/learn/data-modeling-by-example/sensor-data-model) used in this workshop, it is desirable to have familiarity with the concepts explored in the two previous installments of the series:
 
 - [Cassandra Fundamentals](https://github.com/datastaxdevs/workshop-cassandra-fundamentals)
 - [Data Modeling with Cassandra](https://github.com/datastaxdevs/workshop-cassandra-data-modeling)
 
 #### Database pre-requisites
 
-It is assumed in the following that you already have created
-your [Astra DB instance](https://github.com/datastaxdevs/workshop-cassandra-fundamentals#4-create-your-astra-db-instance) as instructed in the first episode,
-and that you have a valid "DB Administrator" Token.
-**Note**: the Token that is created with the database does not have all permissions we need,
-so you _need_ to manually [create a Token](https://awesome-astra.github.io/docs/pages/astra/create-token/)
-with the higher "DB Administrator"
-permission and use it in what comes next.
+It is assumed in the following that you already have created your [Astra DB instance](https://github.com/datastaxdevs/workshop-cassandra-fundamentals#4-create-your-astra-db-instance) as instructed in the first episode, and that you have a valid "DB Administrator" Token.
+**Note**: the Token that is created with the database does not have all permissions we need, so you _need_ to manually [create a Token](https://awesome-astra.github.io/docs/pages/astra/create-token/) with the higher "DB Administrator" permission and use it in what comes next.
 
 _In case you haven't your Astra DB yet, go ahead and create it now for free by clicking here:_
 
@@ -73,8 +66,7 @@ First, open this repo in Gitpod by right-clicking the following button ("open in
 
 <a href="https://gitpod.io/#https://github.com/datastaxdevs/workshop-cassandra-application-development"><img src="images/open_in_gitpod.svg?raw=true" /></a>
 
-In a couple of minutes you will have your Gitpod IDE up and running, with this repo cloned,
-ready and waiting for you (you may have to authorize the Gitpod single-sign-on to continue).
+In a couple of minutes you will have your Gitpod IDE up and running, with this repo cloned, ready and waiting for you (you may have to authorize the Gitpod single-sign-on to continue).
 
 _Note_: The next steps are to be executed _within the Gitpod IDE._
 
@@ -102,21 +94,19 @@ astra db get workshops
 
 #### Create and populate tables
 
-The Astra CLI can also launch a `cqlsh` session for you, automatically connected
-to your database. Use this feature to execute a `cql` script that resets the
-contents of the `sensor_data` keyspace, creating the right tables and writing
-representative data on them:
+The Astra CLI can also launch a `cqlsh` session for you, automatically connected to your database. Use this feature to execute a `cql` script that resets the contents of the `sensor_data` keyspace, creating the right tables and writing representative data on them:
 
 ```
 # Make sure the DB exists (resuming it if hibernated)
 astra db create workshops -k sensor_data --if-not-exist --wait
+
 # Launch the initialization script
 astra db cqlsh workshops -f initialize.cql
 ```
 
 You are encouraged to peek at the contents of the script to see what it does.
 
-(_Optional)_ Interactively run some test queries on the newly-populated keyspace
+_(Optional)_ Interactively run some test queries on the newly-populated keyspace
 
 <details><summary>Click to show test queries</summary>
 
@@ -126,7 +116,7 @@ Open an interactive `cqlsh` shell with:
 astra db cqlsh workshops -k sensor_data
 ```
 
-Now you can copy-paste any of the queries below and execute them with the `Enter` key:
+Now you can copy-paste any of the queries below and execute them with the <kbd>Enter</kbd> key:
 
 ```
 -- Q1 (note 'all' is the only partition key in this table)
@@ -135,7 +125,7 @@ FROM    networks
 WHERE   bucket = 'all';
 
 -- Q2
-SELECT  date_hour, avg_temperature, latitude, longitude, sensor 
+SELECT  date_hour, avg_temperature, latitude, longitude, sensor
 FROM    temperatures_by_network
 WHERE   network    = 'forest-net'
   AND   week       = '2020-07-05'
@@ -148,7 +138,7 @@ FROM    sensors_by_network
 WHERE   network = 'forest-net';
 
 -- Q4
-SELECT  timestamp, value 
+SELECT  timestamp, value
 FROM    temperatures_by_sensor
 WHERE   sensor = 's1003'
   AND   date   = '2020-07-06';
@@ -160,9 +150,7 @@ To close `cqlsh` and get back to the shell prompt, execute the `EXIT` command.
 
 #### Download the Secure Connect Bundle
 
-Besides the "Client ID" and the "Client Secret" from the Token, the drivers
-also need the "Secure Connect Bundle" zipfile to work (it contains proxy
-and routing information as well as the necessary certificates).
+Besides the "Client ID" and the "Client Secret" from the Token, the drivers also need the "Secure Connect Bundle" zipfile to work (it contains proxy and routing information as well as the necessary certificates).
 
 To download it:
 
@@ -188,11 +176,9 @@ Finally, `source` the .env file:
 source .env
 ```
 
-
 ## 2 & 3. Now to the exercises!
 
-_Note: it is suggested to check the [sensor data model](https://www.datastax.com/learn/data-modeling-by-example/sensor-data-model)
-in order to be better prepared for what follows. Keep it open in another tab._
+_Note: it is suggested to check the [sensor data model](https://www.datastax.com/learn/data-modeling-by-example/sensor-data-model) in order to be better prepared for what follows. Keep it open in another tab._
 
 Choose your path:
 
@@ -203,26 +189,21 @@ Choose your path:
 
 <img src="images/api-micro.png?raw=true" width="150" align="left" />
 
-In order to get a badge of completion for this workshop,
-complete the following assignment:
+In order to get a badge of completion for this workshop, complete the following assignment:
 
 > Add a GET endpoint to your API corresponding to query `Q1`
 > (_"Find information about all networks; order by name (asc)"_).
 > **Tip**: remember the optimization of having inserted the `bucket` column.
 
-Take a _screenshot_ of the relevant code block and of a successful
-request to that endpoint and head over to [this form](https://dtsx.io/homework-appdev). Answer a couple of
-"theory" questions, attach your screenshot, and hit "Submit".
+Take a _screenshot_ of the relevant code block and of a successful request to that endpoint and head over to [this form](https://dtsx.io/homework-appdev). Answer a couple of "theory" questions, attach your screenshot, and hit "Submit".
 
 That's it! Expect to be awarded your badge in the next week or so!
 
 ## Conclusion
 
-This is not the end of your journey, rather the start: come visit us for more
-cool content, and learn how to succeed using
-Cassandra and Astra DB in your applications!
+This is not the end of your journey, rather the start: come visit us for more cool content, and learn how to succeed using Cassandra and Astra DB in your applications!
 
 Congratulations and see you at our next workshop!
 
 > Sincerely yours, the DataStax Developers
-> 
+>
