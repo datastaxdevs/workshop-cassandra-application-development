@@ -2,16 +2,17 @@
 
 1. [Setup](#1-database-setup)
 
+_Steps #2 and #3 are found in any of the following language-specific paths. Choose your path to proceed:_
+
 - [Python](python/Python_README.md)
 - [Java](java/Java_README.md)
+- [Javascript](javascript/Javascript_README.md)
 
-_Step #2 and #3 are under the Java and Python paths.  You must pick either Java or Python before proceeding to Steps #2 and #3._
 
 Learn about drivers, connectivity and requests by running a simple API with
-Apache Cassandra/Astra DB as its data backend. The practice is available in both
-Python and Java.
+Apache Cassandra/Astra DB as its data backend. The practice is available in several languages.
 
-Click here for the [slide deck](slides/java-and-python-apps-with-cassandra-slides.pdf) of this workshop.
+Click here for the workshop [slide deck](slides/slides.pdf).
 
 ### Pre-requisites
 
@@ -33,8 +34,7 @@ _In case you haven't your Astra DB yet, go ahead and create it now for free by c
 
 > _Tip_: call the database `workshops` and the keyspace `sensor_data`.
 
-_In case you already have a database `workshops` but no `sensor_data` keyspace,
-simply add it using the "Add Keyspace" button on the bottom right hand corner of your DB dashboard._
+_In case you already have a database `workshops` but no `sensor_data` keyspace, simply add it using the "Add Keyspace" button on the bottom right hand corner of your DB dashboard. You may have to "Resume" the database if it has been hibernated (on the free-tier only)._
 
 ## Steps
 
@@ -184,6 +184,7 @@ Choose your path:
 
 - [Python](python/Python_README.md)
 - [Java](java/Java_README.md)
+- [Javascript](javascript/Javascript_README.md)
 
 ## Homework instructions
 

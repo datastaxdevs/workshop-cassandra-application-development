@@ -1,12 +1,9 @@
 tasks:
   - name: main-console
-    # before: |
-    #   cd graphql-client-examples
-    #   nvm install 16.13.0
-    #   npm install -g npm@latest
-    #   npm install astra-setup
-    #   npm install -g netlify-cli
-    #   npm install
+    before: |
+      nvm install 16.13.0
+      npm install -g npm@latest
+      npm install
     command: |
       clear
       echo -e "\n\n\t\t** READY TO ROCK! **\n\n"
