@@ -7,6 +7,12 @@
 
 You will be running the following steps from the command line.
 
+Have you sourced the dot-env file? Please do so:
+
+```
+source .env
+```
+
 ### Setup
 
 First (in the GitPod terminal), do `source .env` to set environment variables for your app.

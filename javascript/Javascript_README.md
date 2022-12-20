@@ -7,62 +7,79 @@
 
 You will be running the following steps from the command line.
 
+Have you sourced the dot-env file? Please do so:
+
+```
+source .env
+```
+
 ### Setup
 
 First (in the GitPod terminal), do `source .env` to set environment variables for your app.
 
 Next `cd javascript`.
 
-```
-****************************
-```
+Install packages, `npm install`.
 
-Install packages, `pip install -r requirements.txt`
-
-The core module is `db_connection.py` which provides a (Singleton) Cassandra
-session for use by the rest of the code. Take a minute to [inspect that](db_connection.py).
+The connection to the database is provided by `db_connection.js`, which
+provides a (Singleton) Cassandra session by reading connection parameters
+from environment variables. Check out [the code](db_connection.js).
 
 ### Run stuff
 
 💻 Run connectivity test:
 ```bash
-python ex_00_connectivity.py
+node ex_00_connectivity.js
 ```
 <details><summary>Show expected result</summary>
 
 ```
-$> python ex_00_connectivity.py
-[get_session] Creating session
-    ** Connected to cluster 'cndb' at data center 'eu-west-1' **
-[shutdown_driver] Closing connection
+$> node ex_00_connectivity.js 
+Creating session.
+    ** Connected to cluster 'cndb' at data center 'us-east1' **
+Session closed.
 ```
 
 </details>
 
 💻 Run query Q3 as standalone exercise:
 ```bash
-python ex_01_query_Q3.py volcano-net
+node ex_01_query_Q3.js volcano-net
 ```
 <details><summary>Show expected result</summary>
 
 ```
-$> python ex_01_query_Q3.py volcano-net
-[get_session] Creating session
+$ node ex_01_query_Q3.js volcano-net
+Creating session.
     ** Querying sensors for network 'volcano-net' ...
-      - Sensor 's2001'  (LAT=+44.46, LON=-110.83): accuracy = high, sensitivity = medium
-      - Sensor 's2002'  (LAT=+44.46, LON=-110.83): accuracy = high, sensitivity = medium
-[shutdown_driver] Closing connection
+      - Sensor    s2001 (LAT=44.46, LON=-110.83): accuracy = high, sensitivity = medium
+      - Sensor    s2002 (LAT=44.46, LON=-110.83): accuracy = high, sensitivity = medium
+Session closed.
 ```
 
 </details>
 
 💻 Try to run the improved form of the same exercise, which uses prepared statements:
 ```bash
-python ex_01B_query_Q3.py volcano-net
+node ex_01B_query_Q3.js volcano-net
 ```
 > If you plan to run the same CQL statements over and over in your driver-based application
 > (possibly with variable arguments), you should always employ prepared statements as they improve
 > the performance by reducing the overhead. Thus this version of query Q3 is to be preferred.
+
+💻 Run the callback-based version
+```bash
+node ex_01C_query_Q3.js volcano-net
+```
+
+The only difference is that this time, instead of a promise-based style,
+the code passes and explicit [callback](https://docs.datastax.com/en/developer/nodejs-driver/4.6/api/class.Client/#execute) to the `execute` method.
+
+
+```
+****************************
+```
+
 
 ## 3. Sensor API
 
