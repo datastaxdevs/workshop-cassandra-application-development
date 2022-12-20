@@ -23,7 +23,7 @@ tasks:
 #     visibility: public
 #     onOpen: open-browser
 #   - port: 3000
-#     onOpen: ignore      
+#     onOpen: ignore
 github:
   prebuilds:
     master: true

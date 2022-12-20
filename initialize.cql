@@ -1,10 +1,12 @@
 -- Creation of the full setup for the sensor network
 -- including tables and their content
--- **CAUTION: this erases and re-creates the tables!
 ----------------------------------------------------
 
 USE sensor_data;
 
+-- During previous exercises, one might have created tables
+-- with these names but different columns. Let's clean it up
+------------------------------------------------------------
 DROP TABLE IF EXISTS networks;
 DROP TABLE IF EXISTS temperatures_by_network;
 DROP TABLE IF EXISTS sensors_by_network;

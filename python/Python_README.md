@@ -7,6 +7,8 @@
 
 You will be running the following steps from the command line.
 
+> Note: since the code uses the `python-dotenv` package, sourcing the dot-env file is not even necessary for Python.
+
 ### Setup
 
 First `cd python`
