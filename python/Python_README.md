@@ -124,7 +124,7 @@ curl -s -XPOST localhost:8000/measurements_by_sensor_date \
 <details><summary>Show expected result</summary>
 
 ```
-$ curl -s -XPOST localhost:8000/measurements_by_sensor_date \
+$> curl -s -XPOST localhost:8000/measurements_by_sensor_date \
 >     -d '{"sensor":"s1001", "date":"2020-07-04"}' \
 >     -H 'Content-Type: application/json' | jq
 [

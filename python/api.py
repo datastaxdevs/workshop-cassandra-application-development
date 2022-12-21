@@ -45,6 +45,9 @@ app = FastAPI()
 
 @app.get('/sensors_by_network/{network}')
 async def get_sensors(network, session=Depends(get_db_session)):
+    """
+    Q3: Display all sensors in a network
+    """
     prepared = get_prepared_Q3(session)
     return [
         {

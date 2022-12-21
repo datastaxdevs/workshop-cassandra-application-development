@@ -59,6 +59,10 @@ Session closed.
 
 </details>
 
+> _Note_: you will see that the `latitude` and `longitude` column values
+> (of type `DECIMAL` in the table)
+> need to be coerced, here and in the upcoming API code, into a number explicitly.
+
 💻 Try to run the improved form of the same exercise, which uses prepared statements:
 ```bash
 node ex_01B_query_Q3.js volcano-net
@@ -75,59 +79,51 @@ node ex_01C_query_Q3.js volcano-net
 The only difference is that this time, instead of a promise-based style,
 the code passes and explicit [callback](https://docs.datastax.com/en/developer/nodejs-driver/4.6/api/class.Client/#execute) to the `execute` method.
 
-
-```
-****************************
-```
-
-
 ## 3. Sensor API
 
 💻 Start the API:
 ```bash
-uvicorn api:app
+node api.js
 ```
 <details><summary>Show expected result</summary>
 
 ```
-$> uvicorn api:app
-INFO:     Started server process [68610]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+$> node api.js
+Creating session.
+API ready on port 5000
 ```
 
 </details>
 
 💻 With the API running, _in the other shell_ try to call the "Q3" endpoint (GET):
 ```bash
-curl -s localhost:8000/sensors_by_network/volcano-net | jq
+curl -s localhost:5000/sensors_by_network/volcano-net | jq
 ```
 <details><summary>Show expected result</summary>
 
 ```
-$> curl -s localhost:8000/sensors_by_network/volcano-net | jq
+$> curl -s localhost:5000/sensors_by_network/volcano-net | jq
 [
-    {
-        "characteristics": {
-            "accuracy": "high",
-            "sensitivity": "medium"
-        },
-        "latitude": 44.460321,
-        "longitude": -110.828151,
-        "network": "volcano-net",
-        "sensor": "s2001"
+  {
+    "network": "volcano-net",
+    "sensor": "s2001",
+    "characteristics": {
+      "accuracy": "high",
+      "sensitivity": "medium"
     },
-    {
-        "characteristics": {
-            "accuracy": "high",
-            "sensitivity": "medium"
-        },
-        "latitude": 44.463195,
-        "longitude": -110.830124,
-        "network": "volcano-net",
-        "sensor": "s2002"
-    }
+    "latitude": 44.460321,
+    "longitude": -110.828151
+  },
+  {
+    "network": "volcano-net",
+    "sensor": "s2002",
+    "characteristics": {
+      "accuracy": "high",
+      "sensitivity": "medium"
+    },
+    "latitude": 44.463195,
+    "longitude": -110.830124
+  }
 ]
 ```
 
@@ -138,31 +134,31 @@ Try to find, in the API code, where the URL path is parsed to obtain the `networ
 
 💻 With the API running, _in the other shell_ try to call the "Q4" endpoint (POST):
 ```bash
-curl -s -XPOST localhost:8000/measurements_by_sensor_date \
+curl -s -XPOST localhost:5000/measurements_by_sensor_date \
     -d '{"sensor":"s1001", "date":"2020-07-04"}' \
     -H 'Content-Type: application/json' | jq
 ```
 <details><summary>Show expected result</summary>
 
 ```
-$ curl -s -XPOST localhost:8000/measurements_by_sensor_date \
+$> curl -s -XPOST localhost:5000/measurements_by_sensor_date \
 >     -d '{"sensor":"s1001", "date":"2020-07-04"}' \
 >     -H 'Content-Type: application/json' | jq
 [
   {
-    "timestamp": "2020-07-04T12:59:59",
+    "timestamp": "2020-07-04T12:59:59.000Z",
     "value": 98
   },
   {
-    "timestamp": "2020-07-04T12:00:01",
+    "timestamp": "2020-07-04T12:00:01.000Z",
     "value": 97
   },
   {
-    "timestamp": "2020-07-04T00:59:59",
+    "timestamp": "2020-07-04T00:59:59.000Z",
     "value": 79
   },
   {
-    "timestamp": "2020-07-04T00:00:01",
+    "timestamp": "2020-07-04T00:00:01.000Z",
     "value": 80
   }
 ]
@@ -170,5 +166,5 @@ $ curl -s -XPOST localhost:8000/measurements_by_sensor_date \
 
 In this case, the parameters are passed as POST payload: you can check, in the API
 code, the way these are parsed and used within the endpoint function body.
-This makes use of a `pydantic` model and the highly-automated dependency management
-facilities offered by FastAPI.
+This makes use of `moment.js` for parsing and a subsequent conversion with
+`toDate()` to comply with the allowed [representation for date/time](https://docs.datastax.com/en/developer/nodejs-driver/4.6/features/datatypes/datetime/) in the Node drivers.
