@@ -158,6 +158,8 @@ $> curl -s -XPOST localhost:5000/measurements_by_sensor_date \
 ]
 ```
 
+</details>
+
 In this case, the parameters are passed as POST payload: you can check, in the API
 code, the way these are parsed and used within the endpoint function body.
 This makes use of `moment.js` for parsing and a subsequent conversion with
