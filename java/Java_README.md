@@ -164,4 +164,4 @@ In this case, the parameters are passed as POST payload: you can check, in the A
 
 Congratulations, your Astra-DB-backed API is running all right!
 
-Now head back to the [main README](../README#homework-instructions) and ... it's time for a little assignment!
+Now head back to the [main README](../README.md#homework-instructions) and ... it's time for a little assignment!

@@ -169,4 +169,4 @@ This makes use of `moment.js` for parsing and a subsequent conversion with
 
 Congratulations, your Astra-DB-backed API is running all right!
 
-Now head back to the [main README](../README#homework-instructions) and ... it's time for a little assignment!
+Now head back to the [main README](../README.md#homework-instructions) and ... it's time for a little assignment!
