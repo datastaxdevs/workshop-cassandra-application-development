@@ -1,6 +1,6 @@
 # workshop-cassandra-application-development
 
-1. [Setup](#1-database-setup)
+1. [Setup](#1-setup)
 
 _Steps #2 and #3 are found in any of the following language-specific paths. Choose your path to proceed:_
 
