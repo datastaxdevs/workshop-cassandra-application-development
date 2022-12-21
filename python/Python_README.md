@@ -151,3 +151,9 @@ In this case, the parameters are passed as POST payload: you can check, in the A
 code, the way these are parsed and used within the endpoint function body.
 This makes use of a `pydantic` model and the highly-automated dependency management
 facilities offered by FastAPI.
+
+## Well done!
+
+Congratulations, your Astra-DB-backed API is running all right!
+
+Now head back to the [main README](../README#homework-instructions) and ... it's time for a little assignment!

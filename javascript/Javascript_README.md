@@ -162,3 +162,9 @@ In this case, the parameters are passed as POST payload: you can check, in the A
 code, the way these are parsed and used within the endpoint function body.
 This makes use of `moment.js` for parsing and a subsequent conversion with
 `toDate()` to comply with the allowed [representation for date/time](https://docs.datastax.com/en/developer/nodejs-driver/4.6/features/datatypes/datetime/) in the Node drivers.
+
+## Well done!
+
+Congratulations, your Astra-DB-backed API is running all right!
+
+Now head back to the [main README](../README#homework-instructions) and ... it's time for a little assignment!
