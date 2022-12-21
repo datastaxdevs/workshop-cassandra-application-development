@@ -19,6 +19,12 @@ const session = getSession();
 api.get('/sensors_by_network/:network', (req, res) => {
   /*
   Q3: Display all sensors in a network
+
+  Note: the 'decimal' CQL data type becomes a "require('cassandra-driver').types.BigDecimal" in Node
+  (see https://docs.datastax.com/en/developer/nodejs-driver/4.6/features/datatypes/
+  https://docs.datastax.com/en/developer/nodejs-driver/4.6/features/datatypes/numerical/#decimal)
+  so in the code below, to have a smooth JSON result, these values are forced into ordinary numbers.
+  (this works only insofar as we *know* these numbers do not lead to overflow or similar when converted...)
   */
   session.execute(
     "SELECT * FROM sensors_by_network WHERE network = ?;",

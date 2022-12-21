@@ -25,7 +25,10 @@ async function main() {
       console.log(
         '      - Sensor %s (LAT=%s, LON=%s): %s',
         row['sensor'].padStart(8),
-        // coerce to ordinary numbers with "1.0 * ..."
+        // The 'decimal' CQL data type becomes a "require('cassandra-driver').types.BigDecimal" in Node:
+        // see https://docs.datastax.com/en/developer/nodejs-driver/4.6/features/datatypes/
+        // and https://docs.datastax.com/en/developer/nodejs-driver/4.6/features/datatypes/numerical/#decimal
+        // So this "1.0 * ..." is there to coerce the values to ordinary numbers.
         (1.0 * row['latitude']).toFixed(2),
         (1.0 * row['longitude']).toFixed(2),
         (Object.entries(row['characteristics']).map( (kv) => `${kv[0]} = ${kv[1]}`)).join(', ')

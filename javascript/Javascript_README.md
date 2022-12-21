@@ -54,7 +54,8 @@ Session closed.
 </details>
 
 > _Note_: you will see that the `latitude` and `longitude` column values
-> (of type `DECIMAL` in the table)
+> (of type `DECIMAL` in the table) are
+> [returned as `BigDecimal` objects in the drivers](https://docs.datastax.com/en/developer/nodejs-driver/4.6/features/datatypes/), hence
 > need to be coerced, here and in the upcoming API code, into a number explicitly.
 
 💻 Try to run the improved form of the same exercise, which uses prepared statements:
