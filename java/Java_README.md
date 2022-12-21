@@ -159,3 +159,9 @@ $> curl -s -XPOST localhost:8080/measurements_by_sensor_date \
 </details>
 
 In this case, the parameters are passed as POST payload: you can check, in the API code, the way these are parsed and used within the endpoint function body.
+
+## Well done!
+
+Congratulations, your Astra-DB-backed API is running all right!
+
+Now head back to the [main README](../README.md#homework-instructions) and ... it's time for a little assignment!

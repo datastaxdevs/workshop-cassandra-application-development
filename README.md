@@ -1,6 +1,6 @@
 # workshop-cassandra-application-development
 
-1. [Setup](#1-database-setup)
+1. [Setup](#1-setup)
 
 _Steps #2 and #3 are found in any of the following language-specific paths. Choose your path to proceed:_
 
@@ -194,7 +194,7 @@ In order to get a badge of completion for this workshop, complete the following 
 
 > Add a GET endpoint to your API corresponding to query `Q1`
 > (_"Find information about all networks; order by name (asc)"_).
-> **Tip**: remember the optimization of having inserted the `bucket` column.
+> **Tip**: remember the data-modeling optimization of having inserted the `bucket` column.
 
 Take a _screenshot_ of the relevant code block and of a successful request to that endpoint and head over to [this form](https://dtsx.io/homework-appdev). Answer a couple of "theory" questions, attach your screenshot, and hit "Submit".
 
@@ -207,4 +207,3 @@ This is not the end of your journey, rather the start: come visit us for more co
 Congratulations and see you at our next workshop!
 
 > Sincerely yours, the DataStax Developers
->

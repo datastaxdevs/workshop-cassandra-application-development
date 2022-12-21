@@ -1,9 +1,11 @@
 tasks:
   - name: main-console
     before: |
+      cd /workspace/workshop-cassandra-application-development/javascript
       nvm install 16.13.0
       npm install -g npm@latest
       npm install
+      cd /workspace/workshop-cassandra-application-development/
     command: |
       clear
       echo -e "\n\n\t\t** READY TO ROCK! **\n\n"
