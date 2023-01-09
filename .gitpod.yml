@@ -1,12 +1,15 @@
 tasks:
   - name: main-console
     before: |
+      printf 'export PATH="$HOME%s:$PATH"\n' "/.astra/cli" | tee -a $HOME/.bashrc
+      curl -Ls "https://dtsx.io/get-astra-cli" | bash | tee -a /workspace/workshop-cassandra-application-development/astra-cli-install.log
       cd /workspace/workshop-cassandra-application-development/javascript
       nvm install 16.13.0
       npm install -g npm@latest
       npm install
       cd /workspace/workshop-cassandra-application-development/
     command: |
+      source /home/gitpod/.astra/cli/astra-init.sh
       clear
       echo -e "\n\n\t\t** READY TO ROCK! **\n\n"
       gp open README.md
@@ -33,3 +36,6 @@ github:
     addComment: false
     addBadge: true
     addLabel: false
+
+
+
