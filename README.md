@@ -34,13 +34,13 @@ _In case you haven't your Astra DB yet, go ahead and create it now for free by c
 
 > _Tip_: call the database `workshops` and the keyspace `sensor_data`.
 
-_In case you already have a database `workshops` but no `sensor_data` keyspace, simply add it using the "Add Keyspace" button on the bottom right hand corner of your DB dashboard. You may have to "Resume" the database if it has been hibernated (on the free-tier only)._
+_In case you already have a database `workshops` but no `sensor_data` keyspace, simply add it using the "Add Keyspace" button on the bottom right hand corner of your DB dashboard: please do so, avoiding the creation of another database with the same name. (Also, on the free tier you have to "Resume" the database if it is "Hibernated" for prolonged inactivity.)_
 
 ## Steps
 
 ## 1. Setup
 
-#### Astra DB "Administrator" token
+### Astra DB "Administrator" token
 
 If you don't have a "DB Administrator" token yet, log in to your Astra DB
 and create a token with this role.
@@ -60,7 +60,7 @@ for more on token creation.
 Mind that, as mentioned already, _the default Token auto-created for you when
 creating the database is not powerful enough for us today._
 
-#### Gitpod
+### Gitpod
 
 First, open this repo in Gitpod by right-clicking the following button ("open in new tab"):
 
@@ -70,7 +70,7 @@ In a couple of minutes you will have your Gitpod IDE up and running, with this r
 
 _Note_: The next steps are to be executed _within the Gitpod IDE._
 
-#### Install and configure the Astra CLI
+### Install and configure the Astra CLI
 
 In a console within Gitpod, install Astra CLI with
 
@@ -92,7 +92,16 @@ astra db list-keyspaces workshops
 astra db get workshops
 ```
 
-#### Create and populate tables
+<details><summary>Click if you have <strong>multiple databases</strong> called "workshops"</summary>
+
+DB names are not required to be unique: what _is_ unique is the ["Database ID"](https://awesome-astra.github.io/docs/pages/astra/faq/#where-should-i-find-a-database-identifier).
+
+In case you find yourself having more than one "workshops" database, you can provide the ID instead of the name to the CLI commands
+and, being able to unambiguously determine the target, it will work flawlessly.
+
+</details>
+
+### Create and populate tables
 
 The Astra CLI can also launch a `cqlsh` session for you, automatically connected to your database. Use this feature to execute a `cql` script that resets the contents of the `sensor_data` keyspace, creating the right tables and writing representative data on them:
 
@@ -148,33 +157,25 @@ To close `cqlsh` and get back to the shell prompt, execute the `EXIT` command.
 
 </details>
 
-#### Download the Secure Connect Bundle
+### Prepare connection settings
 
-Besides the "Client ID" and the "Client Secret" from the Token, the drivers also need the "Secure Connect Bundle" zipfile to work (it contains proxy and routing information as well as the necessary certificates).
+You can use the Astra CLI to prepare a dotenv file which defines all connection
+parameters and secrets needed for your application to run:
 
-To download it:
-
-```
-astra db download-scb -f secure-connect-workshops.zip workshops
-```
-
-You can check it has been saved with `ls *.zip`.
-
-#### Configure the dot-env file
-
-Copy the template dot-env and edit it with:
-
-```
-cp .env.sample .env ; gp open .env
+```bash
+astra db create-dotenv workshops -k sensor_data
 ```
 
-Replace the Client ID and Client Secret strings from the database Token.
-
-Finally, `source` the .env file:
+A `.env` file will be created (you can peek at it with Gitpod's file editor, e.g. running `gp open .env`).
+You can now source it with:
 
 ```bash
 source .env
 ```
+
+> Note that, while creating the `.env`, the database's [Secure Connect Bundle](https://awesome-astra.github.io/docs/pages/astra/download-scb/)
+> has also been downloaded for you: you may want to check that the file
+> is about 12-13 KiB in size with `ls $ASTRA_DB_SECURE_BUNDLE_PATH -lh`.
 
 ## 2 & 3. Now to the exercises!
 

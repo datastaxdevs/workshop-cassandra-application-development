@@ -7,6 +7,8 @@
 
 You will be running the following steps from the command line.
 
+> Note: since the code uses the `dotenv` package, sourcing the dot-env file is not even necessary for Javascript.
+
 ### Setup
 
 First (in the GitPod terminal), do `source .env` to set environment variables for your app.

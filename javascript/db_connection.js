@@ -1,14 +1,20 @@
 // Connection to an Astra DB database.
 
+require('dotenv').config({path: '../.env'});
 const { Client } = require('cassandra-driver');
+
+/*
+Below we use the literal "token" and a valid Astra token to authenticate.
+An equally valid choice is to supply the "Client ID" and the "Client Secret".
+*/
 
 const config = {
   cloud: {
     secureConnectBundle: process.env.ASTRA_DB_SECURE_BUNDLE_PATH
   },
   credentials: {
-    username: process.env.ASTRA_DB_CLIENT_ID,
-    password: process.env.ASTRA_DB_CLIENT_SECRET
+    username: "token",
+    password: process.env.ASTRA_DB_APPLICATION_TOKEN
   },
   keyspace: process.env.ASTRA_DB_KEYSPACE
 };
