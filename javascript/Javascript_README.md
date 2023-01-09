@@ -5,17 +5,23 @@
 
 ## 2. Sensor App
 
-You will be running the following steps from the command line.
+You will be running the following steps from the command line of your Gitpod: all commands except the later `curl` invocations are to be run on the left-hand panel ("main-console", the one saying "Ready to rock!").
 
 > Note: since the code uses the `dotenv` package, sourcing the dot-env file is not even necessary for Javascript.
 
 ### Setup
 
-First (in the GitPod terminal), do `source .env` to set environment variables for your app.
+Change directory:
 
-Next `cd javascript`.
+```bash
+cd javascript
+```
 
-Install packages, `npm install`.
+Install packages:
+
+```bash
+npm install
+```
 
 The connection to the database is provided by `db_connection.js`, which
 provides a (Singleton) Cassandra session by reading connection parameters
@@ -24,9 +30,11 @@ from environment variables. Check out [the code](db_connection.js).
 ### Run stuff
 
 💻 Run connectivity test:
+
 ```bash
 node ex_00_connectivity.js
 ```
+
 <details><summary>Show expected result</summary>
 
 ```
@@ -39,6 +47,7 @@ Session closed.
 </details>
 
 💻 Run query Q3 as standalone exercise:
+
 ```bash
 node ex_01_query_Q3.js volcano-net
 ```
@@ -61,6 +70,7 @@ Session closed.
 > need to be coerced, here and in the upcoming API code, into a number explicitly.
 
 💻 Try to run the improved form of the same exercise, which uses prepared statements:
+
 ```bash
 node ex_01B_query_Q3.js volcano-net
 ```
@@ -69,6 +79,7 @@ node ex_01B_query_Q3.js volcano-net
 > the performance by reducing the overhead. Thus this version of query Q3 is to be preferred.
 
 💻 Run the callback-based version
+
 ```bash
 node ex_01C_query_Q3.js volcano-net
 ```
@@ -79,9 +90,11 @@ the code passes and explicit [callback](https://docs.datastax.com/en/developer/n
 ## 3. Sensor API
 
 💻 Start the API:
+
 ```bash
 node api.js
 ```
+
 <details><summary>Show expected result</summary>
 
 ```
@@ -92,35 +105,37 @@ API ready on port 5000
 
 </details>
 
-💻 With the API running, _in the other shell_ try to call the "Q3" endpoint (GET):
+💻 With the API running, _in the other shell_ ("curl-console", on the right-hand side) try to call the "Q3" endpoint (GET):
+
 ```bash
 curl -s localhost:5000/sensors_by_network/volcano-net | jq
 ```
+
 <details><summary>Show expected result</summary>
 
 ```
 $> curl -s localhost:5000/sensors_by_network/volcano-net | jq
 [
-  {
-    "network": "volcano-net",
-    "sensor": "s2001",
-    "characteristics": {
-      "accuracy": "high",
-      "sensitivity": "medium"
+    {
+        "network": "volcano-net",
+        "sensor": "s2001",
+        "characteristics": {
+            "accuracy": "high",
+            "sensitivity": "medium"
+        },
+        "latitude": 44.460321,
+        "longitude": -110.828151
     },
-    "latitude": 44.460321,
-    "longitude": -110.828151
-  },
-  {
-    "network": "volcano-net",
-    "sensor": "s2002",
-    "characteristics": {
-      "accuracy": "high",
-      "sensitivity": "medium"
-    },
-    "latitude": 44.463195,
-    "longitude": -110.830124
-  }
+    {
+        "network": "volcano-net",
+        "sensor": "s2002",
+        "characteristics": {
+            "accuracy": "high",
+            "sensitivity": "medium"
+        },
+        "latitude": 44.463195,
+        "longitude": -110.830124
+    }
 ]
 ```
 
@@ -129,7 +144,8 @@ $> curl -s localhost:5000/sensors_by_network/volcano-net | jq
 This endpoint is a GET and its parameter is a path component in the URL.
 Try to find, in the API code, where the URL path is parsed to obtain the `network` name.
 
-💻 With the API running, _in the other shell_ try to call the "Q4" endpoint (POST):
+💻 With the API running, _in the curl shell_ ("curl-console", on the right-hand side) try to call the "Q4" endpoint (POST):
+
 ```bash
 curl -s -XPOST localhost:5000/measurements_by_sensor_date \
     -d '{"sensor":"s1001", "date":"2020-07-04"}' \
@@ -142,22 +158,22 @@ $> curl -s -XPOST localhost:5000/measurements_by_sensor_date \
 >     -d '{"sensor":"s1001", "date":"2020-07-04"}' \
 >     -H 'Content-Type: application/json' | jq
 [
-  {
-    "timestamp": "2020-07-04T12:59:59.000Z",
-    "value": 98
-  },
-  {
-    "timestamp": "2020-07-04T12:00:01.000Z",
-    "value": 97
-  },
-  {
-    "timestamp": "2020-07-04T00:59:59.000Z",
-    "value": 79
-  },
-  {
-    "timestamp": "2020-07-04T00:00:01.000Z",
-    "value": 80
-  }
+    {
+        "timestamp": "2020-07-04T12:59:59.000Z",
+        "value": 98
+    },
+    {
+        "timestamp": "2020-07-04T12:00:01.000Z",
+        "value": 97
+    },
+    {
+        "timestamp": "2020-07-04T00:59:59.000Z",
+        "value": 79
+    },
+    {
+        "timestamp": "2020-07-04T00:00:01.000Z",
+        "value": 80
+    }
 ]
 ```
 

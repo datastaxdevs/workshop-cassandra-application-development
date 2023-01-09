@@ -74,19 +74,19 @@ _Note_: The next steps are to be executed _within the Gitpod IDE._
 
 In a console within Gitpod, install Astra CLI with
 
-```
+```bash
 curl -Ls "https://dtsx.io/get-astra-cli" | bash
 ```
 
 Then provide the "token proper" part of the Token, the string starting with `AstraCS:...`), by running
 
-```
+```bash
 . ~/.bashrc ; astra setup
 ```
 
 (_Optional)_ Get some information on your Astra DB with:
 
-```
+```bash
 astra db list
 astra db list-keyspaces workshops
 astra db get workshops
@@ -105,7 +105,7 @@ and, being able to unambiguously determine the target, it will work flawlessly.
 
 The Astra CLI can also launch a `cqlsh` session for you, automatically connected to your database. Use this feature to execute a `cql` script that resets the contents of the `sensor_data` keyspace, creating the right tables and writing representative data on them:
 
-```
+```bash
 # Make sure the DB exists (resuming it if hibernated)
 astra db create workshops -k sensor_data --if-not-exist --wait
 
@@ -121,13 +121,13 @@ _(Optional)_ Interactively run some test queries on the newly-populated keyspace
 
 Open an interactive `cqlsh` shell with:
 
-```
+```bash
 astra db cqlsh workshops -k sensor_data
 ```
 
 Now you can copy-paste any of the queries below and execute them with the <kbd>Enter</kbd> key:
 
-```
+```sql
 -- Q1 (note 'all' is the only partition key in this table)
 SELECT  name, description, region, num_sensors
 FROM    networks

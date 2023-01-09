@@ -5,15 +5,27 @@
 
 ## 2. Sensor App
 
-You will be running the following steps from the command line.
+You will be running the following steps from the command line of your Gitpod: all commands except the later `curl` invocations are to be run on the left-hand panel ("main-console", the one saying "Ready to rock!").
 
 ### Setup
 
-First (in the GitPod terminal), do `source .env` to set environment variables for your app.
+First run this to export environment variables for your app _(note the `set -a`, which marks all variables as exported to child processes for later consumption within the Java application code)_:
 
-Next `cd java`.
+```bash
+set -a ; source .env
+```
 
-Execute a `mvn clean install` to bring in the dependent packages and build everything.
+Next change directory: 
+
+```bash
+cd java
+```
+
+Now bring in the dependencies and build everything:
+
+```bash
+mvn clean install
+```
 
 The connection classes are `AstraConnection.java` and `CassandraConnection.java`.  The `AstraConnection` class extends the `CassandraConnection` super class, accounting for the Astra DB environment variables.  Take a minute to give those a look:
  - [AstraConnection](src/main/java/astraconnect/AstraConnection.java)
@@ -22,9 +34,11 @@ The connection classes are `AstraConnection.java` and `CassandraConnection.java`
 ### Run stuff
 
 💻 Run connectivity test:
+
 ```bash
 java -jar target/examples-0.0.1-jar-with-dependencies.jar
 ```
+
 <details><summary>Show expected result</summary>
 
 ```
@@ -40,9 +54,11 @@ _Note: You may see warnings for SLF4J.  These can be safely ignored._
 </details>
 
 💻 Run query Q3 as standalone exercise:
+
 ```bash
 java -jar target/examples-0.0.1-jar-with-dependencies.jar ex_01_query_Q3 volcano-net
 ```
+
 <details><summary>Show expected result</summary>
 
 ```
@@ -58,6 +74,7 @@ $> java -jar target/examples-0.0.1-jar-with-dependencies.jar ex_01_query_Q3 volc
 </details>
 
 💻 Try to run the improved form of the same exercise, which uses prepared statements:
+
 ```bash
 java -jar target/examples-0.0.1-jar-with-dependencies.jar ex_01B_query_Q3 volcano-net
 ```
@@ -67,56 +84,59 @@ java -jar target/examples-0.0.1-jar-with-dependencies.jar ex_01B_query_Q3 volcan
 
 ## 3. Sensor API
 
-💻 Start the API:
+💻 Start the API (which is in a separate directory):
+
 ```bash
 cd ../springjava
 mvn clean install
 mvn spring-boot:run
 ```
+
 <details><summary>Show expected result</summary>
 
 ```
-2022-07-11 17:27:18.845  INFO 60815 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2022-07-11 17:27:18.852  INFO 60815 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2022-07-11 17:27:18.852  INFO 60815 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.62]
-2022-07-11 17:27:18.904  INFO 60815 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2022-07-11 17:27:18.904  INFO 60815 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 446 ms
-2022-07-11 17:27:19.113  INFO 60815 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2022-07-11 17:27:19.121  INFO 60815 --- [           main] springexamples.SensorNetworkSpringApp    : Started SensorNetworkSpringApp in 0.865 seconds (JVM running for 4.094)
-
+2022-07-11 17:27:18 INFO 815 [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-07-11 17:27:18 INFO 815 [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-07-11 17:27:18 INFO 815 [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-07-11 17:27:18 INFO 815 [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-07-11 17:27:18 INFO 815 [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 446 ms
+2022-07-11 17:27:19 INFO 815 [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-07-11 17:27:19 INFO 815 [main] springexamples.SensorNetworkSpringApp    : Started SensorNetworkSpringApp in 0.865 seconds (JVM running for 4.094)
 ```
 
 </details>
 
-💻 With the API running, _in the other shell_ try to call the "Q3" endpoint (GET):
+💻 With the API running, _in the other shell_ ("curl-console", on the right-hand side) try to call the "Q3" endpoint (GET):
+
 ```bash
 curl -s localhost:8080/sensors_by_network/volcano-net | jq
 ```
+
 <details><summary>Show expected result</summary>
 
 ```
 $> curl -s localhost:8080/sensors_by_network/volcano-net | jq
 [
-{
-  "network": "volcano-net",
-  "sensor": "s2001",
-  "latitude": 44.460321,
-  "longitude": -110.828151,
-  "characteristics": {
-    "accuracy": "high",
-    "sensitivity": "medium"
-  }
-},
-{
-  "network": "volcano-net",
-  "sensor": "s2002",
-  "latitude": 44.463195,
-  "longitude": -110.830124,
-  "characteristics": {
-    "accuracy": "high",
-    "sensitivity": "medium"
-  }
-}
+    {
+        "network": "volcano-net",
+        "sensor": "s2001",
+        "latitude": 44.460321,
+        "longitude": -110.828151,
+        "characteristics": {
+            "accuracy": "high",
+            "sensitivity": "medium"
+        }
+      },
+    {
+        "network": "volcano-net",
+        "sensor": "s2002",
+        "latitude": 44.463195,
+        "longitude": -110.830124,
+        "characteristics": {
+            "accuracy": "high",
+            "sensitivity": "medium"
+        }
+    }
 ]
 ```
 
@@ -125,12 +145,14 @@ $> curl -s localhost:8080/sensors_by_network/volcano-net | jq
 This endpoint is a GET and its parameter is a path component in the URL.
 Try to find, in the API code, where the URL path is parsed to obtain the `network` name.
 
-💻 With the API running, _in the other shell_ try to call the "Q4" endpoint (POST):
+💻 With the API running, _in the curl shell_ ("curl-console", on the right-hand side) try to call the "Q4" endpoint (POST):
+
 ```bash
 curl -s -XPOST localhost:8080/measurements_by_sensor_date \
     -d '{"sensor":"s1001", "date":"2020-07-04"}' \
     -H 'Content-Type: application/json' | jq
 ```
+
 <details><summary>Show expected result</summary>
 
 ```
@@ -138,22 +160,22 @@ $> curl -s -XPOST localhost:8080/measurements_by_sensor_date \
 >     -d '{"sensor":"s1001", "date":"2020-07-04"}' \
 >     -H 'Content-Type: application/json' | jq
 [
-{
-  "value": 98,
-  "timestamp": "2020-07-04T12:59:59Z"
-},
-{
-  "value": 97,
-  "timestamp": "2020-07-04T12:00:01Z"
-},
-{
-  "value": 79,
-  "timestamp": "2020-07-04T00:59:59Z"
-},
-{
-  "value": 80,
-  "timestamp": "2020-07-04T00:00:01Z"
-}
+    {
+        "value": 98,
+        "timestamp": "2020-07-04T12:59:59Z"
+    },
+    {
+        "value": 97,
+        "timestamp": "2020-07-04T12:00:01Z"
+    },
+    {
+        "value": 79,
+        "timestamp": "2020-07-04T00:59:59Z"
+    },
+    {
+        "value": 80,
+        "timestamp": "2020-07-04T00:00:01Z"
+    }
 ]
 ```
 </details>
