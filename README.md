@@ -8,7 +8,6 @@ _Steps #2 and #3 are found in any of the following language-specific paths. Choo
 - [Java](java/Java_README.md)
 - [Javascript](javascript/Javascript_README.md)
 
-
 Learn about drivers, connectivity and requests by running a simple API with
 Apache Cassandra/Astra DB as its data backend. The practice is available in several languages.
 
@@ -70,21 +69,16 @@ In a couple of minutes you will have your Gitpod IDE up and running, with this r
 
 _Note_: The next steps are to be executed _within the Gitpod IDE._
 
-### Install and configure the Astra CLI
+### Configure the Astra CLI
 
-In a console within Gitpod, install Astra CLI with
-
-```bash
-curl -Ls "https://dtsx.io/get-astra-cli" | bash
-```
-
-Then provide the "token proper" part of the Token, the string starting with `AstraCS:...`), by running
+Astra CLI is preinstalled: configure it by providing your
+`AstraCS:...` database token when prompted:
 
 ```bash
-. ~/.bashrc ; astra setup
+astra setup
 ```
 
-(_Optional)_ Get some information on your Astra DB with:
+(_Optional)_ Now you can use the CLI to get some info on your database(s):
 
 ```bash
 astra db list
@@ -92,7 +86,7 @@ astra db list-keyspaces workshops
 astra db get workshops
 ```
 
-<details><summary>Click if you have <strong>multiple databases</strong> called "workshops"</summary>
+<details><summary>Click here if you have <strong>multiple databases</strong> called "workshops"</summary>
 
 DB names are not required to be unique: what _is_ unique is the ["Database ID"](https://awesome-astra.github.io/docs/pages/astra/faq/#where-should-i-find-a-database-identifier).
 
@@ -151,6 +145,7 @@ SELECT  timestamp, value
 FROM    temperatures_by_sensor
 WHERE   sensor = 's1003'
   AND   date   = '2020-07-06';
+
 ```
 
 To close `cqlsh` and get back to the shell prompt, execute the `EXIT` command.

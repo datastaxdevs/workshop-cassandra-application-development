@@ -18,14 +18,13 @@ tasks:
     command: |
       clear
       echo -e "\n\n\t\t** READY TO CURL... **\n\n"
-# ports:
-#   - port: 8888
-#     onOpen: open-preview
-#   - port: 8080
-#     visibility: public
-#     onOpen: open-browser
-#   - port: 3000
-#     onOpen: ignore
+ports:
+  - port: 5000
+    onOpen: ignore
+  - port: 8000
+    onOpen: ignore
+  - port: 8080
+    onOpen: ignore
 github:
   prebuilds:
     master: true
