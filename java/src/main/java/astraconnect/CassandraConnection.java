@@ -29,14 +29,6 @@ public class CassandraConnection {
     public CassandraConnection(String username, String pwd, String secureBundleLocation, String keyspace) {
         // Connect to Astra DB with a secure bundle
         try {
-            System.out.println(username);
-            System.out.println(pwd);
-            System.out.println(secureBundleLocation);
-            System.out.println(keyspace);
-            System.out.println("=======");
-            Map<String, String> env = System.getenv();
-            env.forEach((k, v) -> System.out.println(k + ":" + v));
-            System.out.println("=======");
             cqlSession = CqlSession.builder()
             .withCloudSecureConnectBundle(Paths.get(secureBundleLocation))
             .withAuthCredentials(username, pwd)
