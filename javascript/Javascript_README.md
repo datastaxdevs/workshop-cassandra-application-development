@@ -1,4 +1,4 @@
-# Python instructions
+# Javascript instructions
 
 2. [Sensor App](#2-sensor-app)
 3. [Sensor API](#3-sensor-api)
