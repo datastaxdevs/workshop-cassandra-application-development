@@ -67,6 +67,8 @@ First, open this repo in Gitpod by right-clicking the following button ("open in
 
 In a couple of minutes you will have your Gitpod IDE up and running, with this repo cloned, ready and waiting for you (you may have to authorize the Gitpod single-sign-on to continue).
 
+> You may see a dialog about "opening this workspace in VS Code Desktop": you can safely dismiss it.
+
 _Note_: The next steps are to be executed _within the Gitpod IDE._
 
 ### Configure the Astra CLI
