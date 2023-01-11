@@ -5,23 +5,23 @@
 
 ## 2. Sensor App
 
-You will be running the following steps from the command line of your Gitpod: all commands except the later `curl` invocations are to be run on the left-hand panel ("main-console", the one saying "Ready to rock!").
+You will be running the following steps from the command line of your Gitpod: all commands except the HTTP requests are to be run on the left-hand panel ("main-console", the one saying "Ready to rock!").
 
 ### Setup
 
-First run this to export environment variables for your app _(note the `set -a`, which marks all variables as exported to child processes for later consumption within the Java application code)_:
+💻 First run this to export environment variables for your app _(note the `set -a`, which marks all variables as exported to child processes for later consumption within the Java application code)_:
 
 ```bash
 set -a ; source .env
 ```
 
-Next change directory: 
+💻 Next change directory: 
 
 ```bash
 cd java
 ```
 
-Now bring in the dependencies and build everything:
+💻 Now bring in the dependencies and build everything:
 
 ```bash
 mvn clean install
@@ -106,37 +106,80 @@ mvn spring-boot:run
 
 </details>
 
-💻 With the API running, _in the other shell_ ("curl-console", on the right-hand side) try to call the "Q3" endpoint (GET):
+💻 With the API running, _in the request shell_ ("request-console", on the right-hand side), try to call the "Q3" endpoint (GET) using [`HTTPie`](https://httpie.io/) (see below if you prefer `curl`):
 
 ```bash
-curl -s localhost:8080/sensors_by_network/volcano-net | jq
+http :8080/sensors_by_network/volcano-net
 ```
 
 <details><summary>Show expected result</summary>
 
 ```
-$> curl -s localhost:8080/sensors_by_network/volcano-net | jq
+$> http :8080/sensors_by_network/volcano-net
+HTTP/1.1 200 
+Connection: keep-alive
+Content-Length: 299
+Content-Type: text/plain;charset=UTF-8
+Date: Wed, 11 Jan 2023 14:14:03 GMT
+Keep-Alive: timeout=60
+
 [
     {
-        "network": "volcano-net",
-        "sensor": "s2001",
+        "characteristics": {
+            "accuracy": "high",
+            "sensitivity": "medium"
+        },
         "latitude": 44.460321,
         "longitude": -110.828151,
+        "network": "volcano-net",
+        "sensor": "s2001"
+    },
+    {
         "characteristics": {
             "accuracy": "high",
             "sensitivity": "medium"
-        }
-      },
-    {
-        "network": "volcano-net",
-        "sensor": "s2002",
+        },
         "latitude": 44.463195,
         "longitude": -110.830124,
-        "characteristics": {
-            "accuracy": "high",
-            "sensitivity": "medium"
-        }
+        "network": "volcano-net",
+        "sensor": "s2002"
     }
+]
+```
+
+</details>
+
+<details><summary>Click for "curl" equivalent instructions</summary>
+
+```bash
+curl -s localhost:8080/sensors_by_network/volcano-net | jq
+```
+
+Expected result:
+
+```
+$> curl -s localhost:8080/sensors_by_network/volcano-net | jq
+[
+  {
+    "network": "volcano-net",
+    "sensor": "s2001",
+    "latitude": 44.460321,
+    "longitude": -110.828151,
+    "characteristics": {
+      "accuracy": "high",
+      "sensitivity": "medium"
+    }
+  },
+  {
+    "network": "volcano-net",
+    "sensor": "s2002",
+    "latitude": 44.463195,
+    "longitude": -110.830124,
+    "characteristics": {
+      "accuracy": "high",
+      "sensitivity": "medium"
+    }
+  }
 ]
 ```
 
@@ -145,7 +188,50 @@ $> curl -s localhost:8080/sensors_by_network/volcano-net | jq
 This endpoint is a GET and its parameter is a path component in the URL.
 Try to find, in the API code, where the URL path is parsed to obtain the `network` name.
 
-💻 With the API running, _in the curl shell_ ("curl-console", on the right-hand side) try to call the "Q4" endpoint (POST):
+💻 With the API running, _in the request shell_ ("request-console", on the right-hand side), try to call the "Q4" endpoint (POST):
+
+```bash
+http --json POST \
+    :8080/measurements_by_sensor_date \
+    "sensor"="s1001" "date"="2020-07-04"
+```
+
+<details><summary>Show expected result</summary>
+
+```
+$> http --json POST \
+>     :8080/measurements_by_sensor_date \
+>     "sensor"="s1001" "date"="2020-07-04"
+HTTP/1.1 200 
+Connection: keep-alive
+Content-Length: 201
+Content-Type: application/json
+Date: Wed, 11 Jan 2023 14:15:31 GMT
+Keep-Alive: timeout=60
+
+[
+    {
+        "timestamp": "2020-07-04T12:59:59Z",
+        "value": 98.0
+    },
+    {
+        "timestamp": "2020-07-04T12:00:01Z",
+        "value": 97.0
+    },
+    {
+        "timestamp": "2020-07-04T00:59:59Z",
+        "value": 79.0
+    },
+    {
+        "timestamp": "2020-07-04T00:00:01Z",
+        "value": 80.0
+    }
+]
+```
+
+</details>
+
+<details><summary>Click for "curl" equivalent instructions</summary>
 
 ```bash
 curl -s -XPOST localhost:8080/measurements_by_sensor_date \
@@ -153,31 +239,32 @@ curl -s -XPOST localhost:8080/measurements_by_sensor_date \
     -H 'Content-Type: application/json' | jq
 ```
 
-<details><summary>Show expected result</summary>
+Expected result:
 
 ```
 $> curl -s -XPOST localhost:8080/measurements_by_sensor_date \
 >     -d '{"sensor":"s1001", "date":"2020-07-04"}' \
 >     -H 'Content-Type: application/json' | jq
 [
-    {
-        "value": 98,
-        "timestamp": "2020-07-04T12:59:59Z"
-    },
-    {
-        "value": 97,
-        "timestamp": "2020-07-04T12:00:01Z"
-    },
-    {
-        "value": 79,
-        "timestamp": "2020-07-04T00:59:59Z"
-    },
-    {
-        "value": 80,
-        "timestamp": "2020-07-04T00:00:01Z"
-    }
+  {
+    "value": 98,
+    "timestamp": "2020-07-04T12:59:59Z"
+  },
+  {
+    "value": 97,
+    "timestamp": "2020-07-04T12:00:01Z"
+  },
+  {
+    "value": 79,
+    "timestamp": "2020-07-04T00:59:59Z"
+  },
+  {
+    "value": 80,
+    "timestamp": "2020-07-04T00:00:01Z"
+  }
 ]
 ```
+
 </details>
 
 In this case, the parameters are passed as POST payload: you can check, in the API code, the way these are parsed and used within the endpoint function body.

@@ -5,19 +5,19 @@
 
 ## 2. Sensor App
 
-You will be running the following steps from the command line of your Gitpod: all commands except the later `curl` invocations are to be run on the left-hand panel ("main-console", the one saying "Ready to rock!").
+You will be running the following steps from the command line of your Gitpod: all commands except the HTTP requests are to be run on the left-hand panel ("main-console", the one saying "Ready to rock!").
 
 > Note: since the code uses the `python-dotenv` package, sourcing the dot-env file is not even necessary for Python.
 
 ### Setup
 
-Change directory:
+💻 Change directory:
 
 ```bash
 cd python
 ```
 
-Install dependencies:
+💻 Install dependencies:
 
 ```bash
 pip install -r requirements.txt
@@ -93,16 +93,22 @@ INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 
 </details>
 
-💻 With the API running, _in the other shell_ try to call the "Q3" endpoint (GET):
+💻 With the API running, _in the request shell_ ("request-console", on the right-hand side), try to call the "Q3" endpoint (GET) using [`HTTPie`](https://httpie.io/) (see below if you prefer `curl`):
 
 ```bash
-curl -s localhost:8000/sensors_by_network/volcano-net | jq
+http :8000/sensors_by_network/volcano-net
 ```
 
 <details><summary>Show expected result</summary>
 
 ```
-$> curl -s localhost:8000/sensors_by_network/volcano-net | jq
+$> http :8000/sensors_by_network/volcano-net
+HTTP/1.1 200 OK
+content-length: 299
+content-type: application/json
+date: Wed, 11 Jan 2023 13:52:04 GMT
+server: uvicorn
+
 [
     {
         "characteristics": {
@@ -129,10 +135,88 @@ $> curl -s localhost:8000/sensors_by_network/volcano-net | jq
 
 </details>
 
+<details><summary>Click for "curl" equivalent instructions</summary>
+
+```bash
+curl -s localhost:8000/sensors_by_network/volcano-net | jq
+```
+
+Expected result:
+
+```
+$> curl -s localhost:8000/sensors_by_network/volcano-net | jq
+[
+  {
+    "network": "volcano-net",
+    "sensor": "s2001",
+    "latitude": 44.460321,
+    "longitude": -110.828151,
+    "characteristics": {
+      "accuracy": "high",
+      "sensitivity": "medium"
+    }
+  },
+  {
+    "network": "volcano-net",
+    "sensor": "s2002",
+    "latitude": 44.463195,
+    "longitude": -110.830124,
+    "characteristics": {
+      "accuracy": "high",
+      "sensitivity": "medium"
+    }
+  }
+]
+```
+
+</details>
+
 This endpoint is a GET and its parameter is a path component in the URL.
 Try to find, in the API code, where the URL path is parsed to obtain the `network` name.
 
-💻 With the API running, _in the curl shell_ ("curl-console", on the right-hand side) try to call the "Q4" endpoint (POST):
+💻 With the API running, _in the request shell_ ("request-console", on the right-hand side), try to call the "Q4" endpoint (POST):
+
+```bash
+http --json POST \
+    :8000/measurements_by_sensor_date \
+    "sensor"="s1001" "date"="2020-07-04"
+```
+
+<details><summary>Show expected result</summary>
+
+```
+$> http --json POST \
+>     :8000/measurements_by_sensor_date \
+>     "sensor"="s1001" "date"="2020-07-04"
+HTTP/1.1 200 OK
+content-length: 197
+content-type: application/json
+date: Wed, 11 Jan 2023 13:57:13 GMT
+server: uvicorn
+
+[
+    {
+        "timestamp": "2020-07-04T12:59:59",
+        "value": 98.0
+    },
+    {
+        "timestamp": "2020-07-04T12:00:01",
+        "value": 97.0
+    },
+    {
+        "timestamp": "2020-07-04T00:59:59",
+        "value": 79.0
+    },
+    {
+        "timestamp": "2020-07-04T00:00:01",
+        "value": 80.0
+    }
+]
+```
+
+</details>
+
+<details><summary>Click for "curl" equivalent instructions</summary>
 
 ```bash
 curl -s -XPOST localhost:8000/measurements_by_sensor_date \
@@ -140,29 +224,29 @@ curl -s -XPOST localhost:8000/measurements_by_sensor_date \
     -H 'Content-Type: application/json' | jq
 ```
 
-<details><summary>Show expected result</summary>
+Expected result:
 
 ```
 $> curl -s -XPOST localhost:8000/measurements_by_sensor_date \
 >     -d '{"sensor":"s1001", "date":"2020-07-04"}' \
 >     -H 'Content-Type: application/json' | jq
 [
-    {
-        "timestamp": "2020-07-04T12:59:59",
-        "value": 98
-    },
-    {
-        "timestamp": "2020-07-04T12:00:01",
-        "value": 97
-    },
-    {
-        "timestamp": "2020-07-04T00:59:59",
-        "value": 79
-    },
-    {
-        "timestamp": "2020-07-04T00:00:01",
-        "value": 80
-    }
+  {
+    "timestamp": "2020-07-04T12:59:59",
+    "value": 98
+  },
+  {
+    "timestamp": "2020-07-04T12:00:01",
+    "value": 97
+  },
+  {
+    "timestamp": "2020-07-04T00:59:59",
+    "value": 79
+  },
+  {
+    "timestamp": "2020-07-04T00:00:01",
+    "value": 80
+  }
 ]
 ```
 

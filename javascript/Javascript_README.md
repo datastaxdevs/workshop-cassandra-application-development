@@ -5,19 +5,19 @@
 
 ## 2. Sensor App
 
-You will be running the following steps from the command line of your Gitpod: all commands except the later `curl` invocations are to be run on the left-hand panel ("main-console", the one saying "Ready to rock!").
+You will be running the following steps from the command line of your Gitpod: all commands except the HTTP requests are to be run on the left-hand panel ("main-console", the one saying "Ready to rock!").
 
 > Note: since the code uses the `dotenv` package, sourcing the dot-env file is not even necessary for Javascript.
 
 ### Setup
 
-Change directory:
+💻 Change directory:
 
 ```bash
 cd javascript
 ```
 
-Install packages:
+💻 Install dependencies:
 
 ```bash
 npm install
@@ -105,58 +105,114 @@ API ready on port 5000
 
 </details>
 
-💻 With the API running, _in the other shell_ ("curl-console", on the right-hand side) try to call the "Q3" endpoint (GET):
+💻 With the API running, _in the request shell_ ("request-console", on the right-hand side), try to call the "Q3" endpoint (GET) using [`HTTPie`](https://httpie.io/) (see below if you prefer `curl`):
 
 ```bash
-curl -s localhost:5000/sensors_by_network/volcano-net | jq
+http :5000/sensors_by_network/volcano-net
 ```
 
 <details><summary>Show expected result</summary>
 
 ```
-$> curl -s localhost:5000/sensors_by_network/volcano-net | jq
+$> http :5000/sensors_by_network/volcano-net
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 299
+Content-Type: application/json; charset=utf-8
+Date: Wed, 11 Jan 2023 14:05:50 GMT
+ETag: W/"12b-0shzYwfOdo5tSPRHAQdyPu/PoQE"
+Keep-Alive: timeout=5
+X-Powered-By: Express
+
 [
     {
-        "network": "volcano-net",
-        "sensor": "s2001",
         "characteristics": {
             "accuracy": "high",
             "sensitivity": "medium"
         },
         "latitude": 44.460321,
-        "longitude": -110.828151
+        "longitude": -110.828151,
+        "network": "volcano-net",
+        "sensor": "s2001"
     },
     {
-        "network": "volcano-net",
-        "sensor": "s2002",
         "characteristics": {
             "accuracy": "high",
             "sensitivity": "medium"
         },
         "latitude": 44.463195,
-        "longitude": -110.830124
+        "longitude": -110.830124,
+        "network": "volcano-net",
+        "sensor": "s2002"
     }
 ]
 ```
 
 </details>
 
+<details><summary>Click for "curl" equivalent instructions</summary>
+
+```bash
+curl -s localhost:5000/sensors_by_network/volcano-net | jq
+```
+
+Expected result:
+
+```
+$> curl -s localhost:5000/sensors_by_network/volcano-net | jq
+[
+  {
+    "network": "volcano-net",
+    "sensor": "s2001",
+    "characteristics": {
+      "accuracy": "high",
+      "sensitivity": "medium"
+    },
+    "latitude": 44.460321,
+    "longitude": -110.828151
+  },
+  {
+    "network": "volcano-net",
+    "sensor": "s2002",
+    "characteristics": {
+      "accuracy": "high",
+      "sensitivity": "medium"
+    },
+    "latitude": 44.463195,
+    "longitude": -110.830124
+  }
+]
+```
+
+</details>
+
+
 This endpoint is a GET and its parameter is a path component in the URL.
 Try to find, in the API code, where the URL path is parsed to obtain the `network` name.
 
-💻 With the API running, _in the curl shell_ ("curl-console", on the right-hand side) try to call the "Q4" endpoint (POST):
+💻 With the API running, _in the request shell_ ("request-console", on the right-hand side) try to call the "Q4" endpoint (POST):
 
 ```bash
-curl -s -XPOST localhost:5000/measurements_by_sensor_date \
-    -d '{"sensor":"s1001", "date":"2020-07-04"}' \
-    -H 'Content-Type: application/json' | jq
+http --json POST \
+    :5000/measurements_by_sensor_date \
+    "sensor"="s1001" "date"="2020-07-04"
 ```
+
 <details><summary>Show expected result</summary>
 
 ```
-$> curl -s -XPOST localhost:5000/measurements_by_sensor_date \
->     -d '{"sensor":"s1001", "date":"2020-07-04"}' \
->     -H 'Content-Type: application/json' | jq
+$> http --json POST \
+>     :5000/measurements_by_sensor_date \
+>     "sensor"="s1001" "date"="2020-07-04"
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 209
+Content-Type: application/json; charset=utf-8
+Date: Wed, 11 Jan 2023 14:08:20 GMT
+ETag: W/"d1-xcCHVjBxvBg19/9NGLyyd0s8jf8"
+Keep-Alive: timeout=5
+X-Powered-By: Express
+
 [
     {
         "timestamp": "2020-07-04T12:59:59.000Z",
@@ -174,6 +230,42 @@ $> curl -s -XPOST localhost:5000/measurements_by_sensor_date \
         "timestamp": "2020-07-04T00:00:01.000Z",
         "value": 80
     }
+]
+```
+
+</details>
+
+<details><summary>Click for "curl" equivalent instructions</summary>
+
+```bash
+curl -s -XPOST localhost:5000/measurements_by_sensor_date \
+    -d '{"sensor":"s1001", "date":"2020-07-04"}' \
+    -H 'Content-Type: application/json' | jq
+```
+
+Expected result:
+
+```
+$> curl -s -XPOST localhost:5000/measurements_by_sensor_date \
+>     -d '{"sensor":"s1001", "date":"2020-07-04"}' \
+>     -H 'Content-Type: application/json' | jq
+[
+  {
+    "timestamp": "2020-07-04T12:59:59.000Z",
+    "value": 98
+  },
+  {
+    "timestamp": "2020-07-04T12:00:01.000Z",
+    "value": 97
+  },
+  {
+    "timestamp": "2020-07-04T00:59:59.000Z",
+    "value": 79
+  },
+  {
+    "timestamp": "2020-07-04T00:00:01.000Z",
+    "value": 80
+  }
 ]
 ```
 

@@ -2,6 +2,7 @@ tasks:
   - name: main-console
     before: |
       printf 'export PATH="$HOME%s:$PATH"\n' "/.astra/cli" | tee -a $HOME/.bashrc
+      pip install httpie
       curl -Ls "https://dtsx.io/get-astra-cli" | bash | tee -a /workspace/workshop-cassandra-application-development/astra-cli-install.log
       cd /workspace/workshop-cassandra-application-development/javascript
       nvm install 16.13.0
@@ -13,11 +14,11 @@ tasks:
       clear
       echo -e "\n\n\t\t** READY TO ROCK! **\n\n"
       gp open README.md
-  - name: curl-console
+  - name: request-console
     openMode: split-right
     command: |
       clear
-      echo -e "\n\n\t\t** READY TO CURL... **\n\n"
+      echo -e "\n\n\t\t** READY FOR REQUESTS ... **\n\n"
 ports:
   - port: 5000
     onOpen: ignore
