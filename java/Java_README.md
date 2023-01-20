@@ -9,7 +9,7 @@ You will be running the following steps from the command line of your Gitpod: al
 
 ### Setup
 
-💻 First run this to export environment variables for your app _(note the `set -a`, which marks all variables as exported to child processes for later consumption within the Java application code)_:
+💻 Make sure you exported the environment variables for your app earlier with the command _(note the `set -a`, which marks all variables as exported to child processes for later consumption within the Java application code)_:
 
 ```bash
 set -a ; source .env
