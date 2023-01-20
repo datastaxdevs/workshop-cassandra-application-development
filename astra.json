@@ -1,0 +1,20 @@
+{
+  "name": "Apache Cassandra Application Development",
+  "description": "Learn about drivers, connectivity and requests by running a simple API with Apache Cassandra/Astra DB as its data backend.",
+  "duration": "120 minutes",
+  "skillLevel": "Beginner",
+  "language":["python", "java", "javascript"],
+  "stack": ["cassandra"],
+  "githubUrl": "https://github.com/datastaxdevs/workshop-cassandra-application-development",
+  "badge": "https://media.badgr.com/uploads/badges/b2f4df25-039d-42d2-a109-d72bd49d3f38.png",
+  "youTubeUrl": [ "https://www.youtube.com/watch?v=jCq0Eg0RnLU"]
+  "tags": [
+    { "name": "workshop" },
+    { "name": "nosql" },
+    { "name": "cassandra" },
+    { "name": "cql" },
+    { "name": "drivers" }
+  ],
+  "category": "workshop",
+  "usecases": []
+}
