@@ -1,29 +1,31 @@
 tasks:
   - name: main-console
-    # before: |
-    #   cd graphql-client-examples
-    #   nvm install 16.13.0
-    #   npm install -g npm@latest
-    #   npm install astra-setup
-    #   npm install -g netlify-cli
-    #   npm install
+    before: |
+      printf 'export PATH="$HOME%s:$PATH"\n' "/.astra/cli" | tee -a $HOME/.bashrc
+      pip install httpie
+      curl -Ls "https://dtsx.io/get-astra-cli" | bash | tee -a /workspace/workshop-cassandra-application-development/astra-cli-install.log
+      cd /workspace/workshop-cassandra-application-development/javascript
+      nvm install 16.13.0
+      npm install -g npm@latest
+      npm install
+      cd /workspace/workshop-cassandra-application-development/
     command: |
+      source /home/gitpod/.astra/cli/astra-init.sh
       clear
       echo -e "\n\n\t\t** READY TO ROCK! **\n\n"
       gp open README.md
-  - name: curl-console
+  - name: request-console
     openMode: split-right
     command: |
       clear
-      echo -e "\n\n\t\t** READY TO CURL... **\n\n"
-# ports:
-#   - port: 8888
-#     onOpen: open-preview
-#   - port: 8080
-#     visibility: public
-#     onOpen: open-browser
-#   - port: 3000
-#     onOpen: ignore
+      echo -e "\n\n\t\t** READY FOR REQUESTS ... **\n\n"
+ports:
+  - port: 5000
+    onOpen: ignore
+  - port: 8000
+    onOpen: ignore
+  - port: 8080
+    onOpen: ignore
 github:
   prebuilds:
     master: true
@@ -34,3 +36,6 @@ github:
     addComment: false
     addBadge: true
     addLabel: false
+
+
+

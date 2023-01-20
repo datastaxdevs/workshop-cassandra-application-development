@@ -7,3 +7,5 @@ java/.classpath
 java/.java-version
 java/.project
 java/.settings/
+javascript/node_modules
+javascript/package-lock.json
