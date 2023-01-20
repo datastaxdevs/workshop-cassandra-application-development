@@ -7,7 +7,7 @@
   "stack": ["cassandra"],
   "githubUrl": "https://github.com/datastaxdevs/workshop-cassandra-application-development",
   "badge": "https://media.badgr.com/uploads/badges/b2f4df25-039d-42d2-a109-d72bd49d3f38.png",
-  "youTubeUrl": [ "https://www.youtube.com/watch?v=jCq0Eg0RnLU"]
+  "youTubeUrl": [ "https://www.youtube.com/watch?v=jCq0Eg0RnLU"],
   "tags": [
     { "name": "workshop" },
     { "name": "nosql" },
