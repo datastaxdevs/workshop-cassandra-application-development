@@ -1,17 +1,7 @@
-# workshop-cassandra-application-development
-
-1. [Setup](#1-setup)
-
-_Steps #2 and #3 are found in any of the following language-specific paths. You can pick a path to proceed **later**._
-
-**Note: Complete the setup before proceeding**:
-
-- [Python](python/Python_README.md)
-- [Java](java/Java_README.md)
-- [Javascript](javascript/Javascript_README.md)
+# Workshop - Application Development with Cassandra
 
 Learn about drivers, connectivity and requests by running a simple API with
-Apache Cassandra/Astra DB as its data backend. The steps are available in several languages.
+Apache Cassandra/Astra DB as its data backend. The steps are available in _several languages_.
 
 Click here for the workshop [slide deck](slides/slides.pdf).
 
@@ -36,8 +26,6 @@ _In case you haven't your Astra DB yet, go ahead and create it now for free by c
 > _Tip_: call the database `workshops` and the keyspace `sensor_data`.
 
 _In case you already have a database `workshops` but no `sensor_data` keyspace, simply add it using the "Add Keyspace" button on the bottom right hand corner of your DB dashboard: please do so, avoiding the creation of another database with the same name. (Also, on the free tier you have to "Resume" the database if it is "Hibernated" for prolonged inactivity.)_
-
-## Steps
 
 ## 1. Setup
 
@@ -169,14 +157,12 @@ A `.env` file will be created (you can peek at it with Gitpod's file editor, e.g
 You can now source it with:
 
 ```bash
-set -a; source .env
+source .env
 ```
 
-> **Note 0**: The `set -a`, marks all variables as exported to child processes
+> **Note**: The `.env` is handled differently in each implementation (Java, Python, Javascript), as will be shown later.
 >
-> **Note 1**: The `.env` handling for each programming language (python, javascript, Java) is a bit different as will be clarified in the respective sections.
->
-> **Note 2**: While creating the `.env`, the database's [Secure Connect Bundle](https://awesome-astra.github.io/docs/pages/astra/download-scb/)
+> **Note**: While creating the `.env`, the database's [Secure Connect Bundle](https://awesome-astra.github.io/docs/pages/astra/download-scb/)
 > has also been downloaded for you: you may want to check that the file
 > is about 12-13 KiB in size with `ls $ASTRA_DB_SECURE_BUNDLE_PATH -lh`.
 
